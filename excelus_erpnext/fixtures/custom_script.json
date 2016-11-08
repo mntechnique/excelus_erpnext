@@ -1,0 +1,11 @@
+[
+ {
+  "docstatus": 0, 
+  "doctype": "Custom Script", 
+  "dt": "Item", 
+  "modified": "2016-11-08 15:54:46.521709", 
+  "name": "Item-Client", 
+  "script": "", 
+  "script_type": "Client"
+ }
+]
