@@ -111,7 +111,7 @@ app_license = "GPL v3"
 # 	"frappe.desk.doctype.event.event.get_events": "excelus_erpnext.event.get_events"
 # }
 
-fixtures = [{"dt":"Property Setter"},{"dt": "Custom Field", "filters":[["name", "in", ['Item-excelus_pack_weight', 'Item-excelus_packs_per_carton',
+fixtures = [{"dt":"Property Setter"},{"dt": "Custom Field", "filters":[["name", "in", ['Item-sb_excelus_item_details','Item-excelus_pack_weight', 'Item-excelus_packs_per_carton',
 															  'Item-excelus_pack_length','Item-excelus_pack_width',
 												     		  'Item-excelus_film_wastage','Item-excelus_film_thickness',
 															  'Item-excelus_carton_width','Item-excelus_tape_required_per_carton',
