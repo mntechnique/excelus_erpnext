@@ -3,9 +3,9 @@
   "docstatus": 0, 
   "doctype": "Custom Script", 
   "dt": "Item", 
-  "modified": "2016-11-08 15:54:46.521709", 
+  "modified": "2016-11-12 14:23:51.770445", 
   "name": "Item-Client", 
-  "script": "", 
+  "script": "frappe.ui.form.on(\"Item\", \"onload\", function(frm) {\n\texcelus_show_fields(frm, 0, 0, 0, 0, 0, 0, 1);\n});\n\nfrappe.ui.form.on(\"Item\", \"item_group\", function(frm) {\n\titemgroupname = frm.doc.item_group.replace(/\\s+/g, '').toLowerCase();\n\tconsole.log(itemgroupname);\n\tif (itemgroupname == \"pm-film\") {\n\t\texcelus_show_fields(frm, 0,1,1,0,1,1,0);\n\t} else if (itemgroupname == \"pm-tape\") {\n\t\texcelus_show_fields(frm, 0, 0, 1, 0, 0, 1, 0);\n\t} else if (itemgroupname == \"pm-carton\") {\n\t\texcelus_show_fields(frm, 1, 1, 1, 1, 0, 1, 0);\n\t} else {\n\t\texcelus_show_fields(frm, 0, 0, 0, 0, 0, 0, 1);\n\t}\n});\n\nfunction excelus_show_fields(frm, packs_per_carton, length, width, height, wastage, thickness, conversion_cost) {\n\tfrm.set_df_property(\"excelus_packs_per_carton\", \"hidden\", !packs_per_carton);\n\tfrm.set_df_property(\"excelus_pm_length\", \"hidden\", !length);\n\tfrm.set_df_property(\"excelus_pm_length_uom\", \"hidden\", !length);\n\tfrm.set_df_property(\"excelus_pm_width\", \"hidden\", !width);\n\tfrm.set_df_property(\"excelus_pm_width_uom\", \"hidden\", !width);\n\tfrm.set_df_property(\"excelus_pm_height\", \"hidden\", !height);\n\tfrm.set_df_property(\"excelus_pm_height_uom\", \"hidden\", !height);\n\tfrm.set_df_property(\"excelus_pm_wastage\", \"hidden\", !wastage);\n\tfrm.set_df_property(\"excelus_pm_thickness\", \"hidden\", !thickness);\n\tfrm.set_df_property(\"excelus_pm_thickness_uom\", \"hidden\", !thickness);\n\tfrm.set_df_property(\"excelus_conversion_cost\", \"hidden\", !conversion_cost);\n\tfrm.refresh_fields();\n}", 
   "script_type": "Client"
  }
 ]

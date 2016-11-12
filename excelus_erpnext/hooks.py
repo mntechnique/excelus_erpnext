@@ -111,10 +111,21 @@ app_license = "GPL v3"
 # 	"frappe.desk.doctype.event.event.get_events": "excelus_erpnext.event.get_events"
 # }
 
-fixtures = [{"dt":"Property Setter"},{"dt": "Custom Field", "filters":[["name", "in", ['Item-sb_excelus_item_details','Item-excelus_pack_weight', 'Item-excelus_packs_per_carton',
-															  'Item-excelus_pack_length','Item-excelus_pack_width',
-												     		  'Item-excelus_film_wastage','Item-excelus_film_thickness',
-															  'Item-excelus_carton_width','Item-excelus_tape_required_per_carton',
-															  'Item-excelus_sticker_cost_per_no'
-															]]]},
-             {"dt": "Custom Script", "filters":[["name", "in", ['Item-client']]]}]
+fixtures = [{"dt":"Property Setter"},{"dt": "Custom Field", "filters":[["name", "in", [
+"Item-excelus_pm_length_uom",
+"Item-cb_excelus_item_details_02",
+"Item-sb_excelus_details_01",
+"Item-excelus_pm_thickness_uom",
+"Item-excelus_pm_thickness",
+"Item-cb_excelus_item_dtls_01",
+"Item-excelus_packs_per_carton",
+"Item-excelus_pm_wastage",
+"Item-excelus_pm_height_uom",
+"Item-excelus_pm_height",
+"Item-excelus_pm_width_uom",
+"Item-excelus_pm_width",
+"Item-excelus_pm_length",
+"Item-excelus_conversion_cost",
+"Item-sb_excelus_item_details"
+]]]},
+{"dt": "Custom Script", "filters":[["name", "in", ['Item-client']]]}]
