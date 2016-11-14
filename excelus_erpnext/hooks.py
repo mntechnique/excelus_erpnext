@@ -128,4 +128,4 @@ fixtures = [{"dt":"Property Setter"},{"dt": "Custom Field", "filters":[["name", 
 "Item-excelus_conversion_cost",
 "Item-sb_excelus_item_details"
 ]]]},
-{"dt": "Custom Script", "filters":[["name", "in", ['Item-client']]]}]
+{"dt": "Custom Script", "filters":[["name", "in", ['Item-client', 'BOM-client']]]}]
