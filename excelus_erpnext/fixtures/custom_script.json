@@ -12,9 +12,9 @@
   "docstatus": 0, 
   "doctype": "Custom Script", 
   "dt": "BOM", 
-  "modified": "2016-11-14 18:34:41.505478", 
+  "modified": "2016-11-14 20:06:41.711758", 
   "name": "BOM-Client", 
-  "script": "\nfrappe.ui.form.on(\"BOM\", \"refresh\", function(frm) {\n\tfrm.add_custom_button(__('Calc PM Qty'), function(frm){\n\t\tfrappe.call({\n\t\t\tmethod: \"excelus_erpnext.api.calculate_pm_qtys\",\n\t\t\targs: { \n\t\t\t\t\"item_code\": cur_frm.doc.item, \n\t\t\t\t\"items\": cur_frm.doc.items \n\t\t\t},\n\t\t\tcallback: function(r) {\n\t\t\t\tset_qtys_per_kg(cur_frm, r.message);\n\t\t\t\tcur_frm.refresh_fields();\n\t\t\t}\n\t\t});\n\t});\n});\n\nfunction set_qtys_per_kg(frm, qtys) {\n\tfor (i=0;i<=frm.doc.items.length-1;i++) {\n\t\tif ( frm.doc.items[i][\"item_code\"].startsWith(\"PM-T\") ) {\n\t\t\tfrm.doc.items[i][\"qty\"] = qtys[\"tape_qty\"];\n\t\t} else if ( frm.doc.items[i][\"item_code\"].startsWith(\"PM-C\") ) {\n\t\t\tfrm.doc.items[i][\"qty\"] = qtys[\"carton_qty\"];\n\t\t} else if ( frm.doc.items[i][\"item_code\"].startsWith(\"PM-L\") ) {\n\t\t\tfrm.doc.items[i][\"qty\"] = qtys[\"laminate_qty\"];\n\t\t}\n\t}\n}", 
+  "script": "\nfrappe.ui.form.on(\"BOM\", \"refresh\", function(frm) {\n\tfrm.add_custom_button(__('Calc PM Qty'), function(frm){\n\t\tfrappe.call({\n\t\t\tmethod: \"excelus_erpnext.api.calculate_pm_qtys\",\n\t\t\targs: { \n\t\t\t\t\"item_code\": cur_frm.doc.item, \n\t\t\t\t\"items\": cur_frm.doc.items \n\t\t\t},\n\t\t\tcallback: function(r) {\n\t\t\t\tset_qtys_per_kg(cur_frm, r.message);\n\t\t\t\trefresh_field(\"items\");\n\t\t\t}\n\t\t});\n\t});\n});\n\nfunction set_qtys_per_kg(frm, qtys) {\n\tlaminate = cur_frm.doc.items.find(function(element) { return element[\"item_code\"].startsWith(\"PM-L\") });\n\tlaminate[\"qty\"] = qtys[\"laminate_qty\"];\n\n\tcarton = cur_frm.doc.items.find(function(element) { return element[\"item_code\"].startsWith(\"PM-C\") });\n\tcarton[\"qty\"] = qtys[\"carton_qty\"];\n\n\ttape = cur_frm.doc.items.find(function(element) { return element[\"item_code\"].startsWith(\"PM-T\") });\n\ttape[\"qty\"] = qtys[\"tape_qty\"];\n}", 
   "script_type": "Client"
  }
 ]

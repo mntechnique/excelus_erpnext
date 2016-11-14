@@ -5,7 +5,6 @@ import json
 #Pack weight comes from bom.item
 
 def calculate_film_qty_per_kg(pack_weight, item_code):
-	#pack_weight = frappe.db.get_value("Item", item_code, "net_weight")
 	packs_per_kg_fg = 1000/pack_weight
 	pack_width = frappe.db.get_value("Item", item_code, "excelus_pm_width")
 	pack_length = frappe.db.get_value("Item", item_code, "excelus_pm_length")
@@ -18,7 +17,6 @@ def calculate_film_qty_per_kg(pack_weight, item_code):
 	return (avg_film_thickness * fg_film_per_kg)/(10**3)
 
 def calculate_carton_qty_per_kg(pack_weight, item_code):
-	#pack_weight = frappe.db.get_value("Item", item_code, "net_weight")
 	packs_per_carton = frappe.db.get_value("Item", item_code, "excelus_packs_per_carton")
 	carton_height =  frappe.db.get_value("Item", item_code, "excelus_pm_height")
 	carton_width =  frappe.db.get_value("Item", item_code, "excelus_pm_width")
@@ -33,7 +31,6 @@ def calculate_carton_qty_per_kg(pack_weight, item_code):
 	return (fg_carton_per_kg * fg_weight_per_carton), packs_per_carton, carton_width
 
 def calculate_tape_qty_per_kg(pack_weight, item_code, packs_per_carton, carton_width):
-	#pack_weight = frappe.db.get_value("Item", item_code, "net_weight")
 	roll_width =  frappe.db.get_value("Item", item_code, "excelus_pm_width")
 	tape_gsm = frappe.db.get_value("Item", item_code, "excelus_pm_thickness")
 	fg_weight_per_carton  = (pack_weight * packs_per_carton) / (10**3)
@@ -58,9 +55,6 @@ def calculate_pm_qtys(item_code, items):
 
 	distinct_items = set(repeating_items)
 
-	for x in xrange(1, 10):
-		print len(repeating_items), len(distinct_items)
-
 	if len(repeating_items)!= len(distinct_items):
 		frappe.throw(_("Same Item has been entered more than once."))
 
@@ -73,11 +67,6 @@ def calculate_pm_qtys(item_code, items):
 
 	tape = [x.get("item_code") for x in items if process_item_group(x.get("item_group")) == "pm-tape"]
 	tape_qty_per_kg = calculate_tape_qty_per_kg(pack_weight,  tape[0], packs_per_carton, carton_width)
-
-
- 	for x in xrange(1,10):
- 		print packs_per_carton, carton_width
-		print frappe._dict({ "laminate_qty": film_qty_per_kg, "carton_qty": carton_qty_per_kg, "tape_qty": tape_qty_per_kg })
 
 	return frappe._dict({ "laminate_qty": film_qty_per_kg, "carton_qty": carton_qty_per_kg, "tape_qty": tape_qty_per_kg })
 
