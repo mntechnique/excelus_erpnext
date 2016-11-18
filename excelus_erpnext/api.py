@@ -25,7 +25,8 @@ def calculate_carton_qty_per_kg(pack_weight, item_code):
 	carton_gsm = frappe.db.get_value("Item", item_code, "excelus_pm_thickness")
 	carton_weight = (carton_board_area * carton_gsm) / (10**3)
 	fg_weight_per_carton = (pack_weight * packs_per_carton) / (10**3)
-	fg_carton_per_kg = 1/fg_weight_per_carton
+	#fg_carton_per_kg = 1/fg_weight_per_carton
+	fg_carton_per_kg = carton_weight/fg_weight_per_carton
 		
 	#return ((fg_carton_per_kg * fg_weight_per_carton) / (10**3)), packs_per_carton, carton_width
 	return (fg_carton_per_kg * fg_weight_per_carton), packs_per_carton, carton_width
@@ -73,3 +74,10 @@ def calculate_pm_qtys(item_code, items):
 
 def process_item_group(item_group):
 	return item_group.replace(" ", "").lower()
+
+
+@frappe.whitelist()
+def awfis_test():
+	for x in xrange(1,10):
+		print frappe.request.headers
+		
