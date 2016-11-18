@@ -16,14 +16,24 @@ frappe.ui.form.on('Excelus Customer Inquiry', {
             for (var i = req.length - 1; i >= 0; i--) {
                 req_items.push(req[i].item);
             }*/
+            frm.set_value("ci_items", []);
             frappe.call({
                 method: "excelus_erpnext.excelus_erpnext.doctype.excelus_customer_inquiry.excelus_customer_inquiry.calculate_fetch_item",
                 args: {
                     "req_items": frm.doc.ci_requirements
                 },
-                callback: function(r){
-                    // msgprint(r.message);
-                   console.log(r.message);
+                callback: function(r, rt) {
+                    if(r.message) {
+                    frm.clear_table("ci_items");
+                    $.each(r.message, function(i, d) {
+                    var c = frm.add_child("ci_items");
+                    c.item = d.item_code;
+                    c.qty = d.qty;
+                    c.uom = d.stock_uom;
+                    });
+}
+refresh_field("ci_items");
+            frm.layout.refresh_sections();
                 }
             });
         });

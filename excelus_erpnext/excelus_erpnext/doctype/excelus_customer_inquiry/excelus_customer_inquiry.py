@@ -31,9 +31,13 @@ def calculate_fetch_item(req_items):
         for bom_item in bom_items:
 
             found_item = [x for x in final_items if x.item_code==bom_item.item_code]
+            qty_ratio = bom_item.qty / frappe.db.get_value("BOM", item.get("bom"), "quantity")
             if len(found_item)==1:
-                found_item[0].qty += bom_item.qty
+                found_item[0].qty += float(qty_ratio) * (float(item.get("qty_kg")) or 1.0)
             else:
+                bom_item["qty"] = float(qty_ratio) * (float(item.get("qty_kg")) or 1.0)
                 final_items.append(bom_item)
+
+    # for i in final_items:
 
     return final_items
