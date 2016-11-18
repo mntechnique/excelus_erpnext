@@ -27,9 +27,10 @@ def calculate_carton_qty_per_kg(pack_weight, item_code):
 	fg_weight_per_carton = (pack_weight * packs_per_carton) / (10**3)
 	#fg_carton_per_kg = 1/fg_weight_per_carton
 	fg_carton_per_kg = carton_weight/fg_weight_per_carton
-		
+	
+	return fg_carton_per_kg, packs_per_carton, carton_width	
+	#return (fg_carton_per_kg * fg_weight_per_carton), packs_per_carton, carton_width
 	#return ((fg_carton_per_kg * fg_weight_per_carton) / (10**3)), packs_per_carton, carton_width
-	return (fg_carton_per_kg * fg_weight_per_carton), packs_per_carton, carton_width
 
 def calculate_tape_qty_per_kg(pack_weight, item_code, packs_per_carton, carton_width):
 	roll_width =  frappe.db.get_value("Item", item_code, "excelus_pm_width")
