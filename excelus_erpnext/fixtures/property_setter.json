@@ -926,23 +926,6 @@
   "doc_type": "Item", 
   "docstatus": 0, 
   "doctype": "Property Setter", 
-  "doctype_or_field": "DocType", 
-  "field_name": null, 
-  "modified": "2016-11-12 14:11:12.076705", 
-  "name": "Item-read_only_onload", 
-  "property": "read_only_onload", 
-  "property_type": "Check", 
-  "value": null
- }, 
- {
-  "_assign": null, 
-  "_comments": null, 
-  "_liked_by": null, 
-  "_user_tags": null, 
-  "default_value": null, 
-  "doc_type": "Item", 
-  "docstatus": 0, 
-  "doctype": "Property Setter", 
   "doctype_or_field": "DocField", 
   "field_name": "naming_series", 
   "modified": "2016-11-14 13:14:49.042595", 
@@ -1137,5 +1120,22 @@
   "property": "options", 
   "property_type": "Text", 
   "value": "\nRM-.####\nPM-.####\nPM-L-.####\nPM-C-.####\nPM-T-.####\nPM-B-.####\nFG-.####\nFG-ST-.####\nFG-OC-.####\nFG-RK-.####\nFG-KK-.####\nFG-INX-.####\nFG-GRB-.####\nFG-FNZ-.####\nFG-NN-.####\nFG-KL-.####\nFG-PVR-.####\nFG-CCD-.####\nFG-LH-.####"
+ }, 
+ {
+  "_assign": null, 
+  "_comments": null, 
+  "_liked_by": null, 
+  "_user_tags": null, 
+  "default_value": null, 
+  "doc_type": "Item", 
+  "docstatus": 0, 
+  "doctype": "Property Setter", 
+  "doctype_or_field": "DocType", 
+  "field_name": null, 
+  "modified": "2016-11-21 20:50:45.983753", 
+  "name": "Item-read_only_onload", 
+  "property": "read_only_onload", 
+  "property_type": "Check", 
+  "value": null
  }
 ]
