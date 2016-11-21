@@ -20,15 +20,18 @@ def calculate_carton_qty_per_kg(pack_weight, item_code):
 	packs_per_carton = frappe.db.get_value("Item", item_code, "excelus_packs_per_carton")
 	carton_height =  frappe.db.get_value("Item", item_code, "excelus_pm_height")
 	carton_width =  frappe.db.get_value("Item", item_code, "excelus_pm_width")
-	carton_length =  frappe.db.get_value("Item", item_code, "excelus_pm_length")	
-	carton_board_area = ((carton_height * carton_length)*2 + (carton_length * carton_width)*2 + (carton_width * carton_height)*2) / (10**6)
+	carton_length =  frappe.db.get_value("Item", item_code, "excelus_pm_length")
+	carton_fold_bleed = frappe.db.get_value("Item", item_code, "excelus_pm_fold_bleed")
+	carton_flap_bleed = frappe.db.get_value("Item", item_code, "excelus_pm_flap_bleed")
+	# carton_board_area = ((carton_height * carton_length)*2 + (carton_length * carton_width)*2 + (carton_width * carton_height)*2) / (10**6)
+	carton_board_area = (2*(carton_length*(2*carton_height)))+(2*(carton_width*(2*carton_height)))+(3*(carton_height*carton_fold_bleed))+(carton_height*carton_flap_bleed)
 	carton_gsm = frappe.db.get_value("Item", item_code, "excelus_pm_thickness")
 	carton_weight = (carton_board_area * carton_gsm) / (10**3)
 	fg_weight_per_carton = (pack_weight * packs_per_carton) / (10**3)
 	#fg_carton_per_kg = 1/fg_weight_per_carton
 	fg_carton_per_kg = carton_weight/fg_weight_per_carton
-	
-	return fg_carton_per_kg, packs_per_carton, carton_width	
+
+	return fg_carton_per_kg, packs_per_carton, carton_width
 	#return (fg_carton_per_kg * fg_weight_per_carton), packs_per_carton, carton_width
 	#return ((fg_carton_per_kg * fg_weight_per_carton) / (10**3)), packs_per_carton, carton_width
 
@@ -63,7 +66,7 @@ def calculate_pm_qtys(item_code, items):
 
 	film = [x.get("item_code") for x in items if process_item_group(x.get("item_group")) == "pm-laminate"]
 	film_qty_per_kg = calculate_film_qty_per_kg(pack_weight, film[0])
-	
+
 	carton = [x.get("item_code") for x in items if process_item_group(x.get("item_group")) == "pm-carton"]
 	carton_qty_per_kg, packs_per_carton, carton_width = calculate_carton_qty_per_kg(pack_weight, carton[0])
 
@@ -81,4 +84,4 @@ def process_item_group(item_group):
 def awfis_test():
 	for x in xrange(1,10):
 		print frappe.request.headers
-		
+
