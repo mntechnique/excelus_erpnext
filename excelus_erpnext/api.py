@@ -1,6 +1,9 @@
 import frappe
 from frappe import _
 import json
+from frappe.utils.pdf import get_pdf
+import pdfkit
+import os
 
 #Pack weight comes from bom.item
 
@@ -86,3 +89,46 @@ def awfis_test():
 	for x in xrange(1,10):
 		print frappe.request.headers
 
+
+
+
+html_params = frappe._dict({
+})
+
+html = frappe.render_template("excelus_erpnext/templates/includes/excelus_cost_sheet.html", html_params)
+
+@frappe.whitelist()
+def excelus_get_pdf(html, options=None):
+	fname = os.path.join("/tmp", "excelus-ci-{0}.pdf".format(frappe.generate_hash()))
+
+	try:
+		pdfkit.from_string(html, fname, options=options or {})
+
+		with open(fname, "rb") as fileobj:
+			filedata = fileobj.read()
+
+	except IOError, e:
+		if ("ContentNotFoundError" in e.message
+			or "ContentOperationNotPermittedError" in e.message
+			or "UnknownContentError" in e.message
+			or "RemoteHostClosedError" in e.message):
+
+			# allow pdfs with missing images if file got created
+			if os.path.exists(fname):
+				with open(fname, "rb") as fileobj:
+					filedata = fileobj.read()
+
+			else:
+				frappe.throw(_("PDF generation failed because of broken image links"))
+		else:
+			raise
+
+	finally:
+		cleanup(fname)
+
+
+	return filedata
+
+def cleanup(fname):
+	if os.path.exists(fname):
+		os.remove(fname)

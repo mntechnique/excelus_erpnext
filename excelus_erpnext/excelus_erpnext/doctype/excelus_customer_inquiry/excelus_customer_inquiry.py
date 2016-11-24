@@ -37,3 +37,4 @@ def calculate_fetch_item(req_items):
     # for i in final_items:
 
     return final_items
+

@@ -19,24 +19,38 @@ frappe.ui.form.on('Excelus Customer Inquiry', {
             frm.set_value("ci_items", []);
             frappe.call({
                 method: "excelus_erpnext.excelus_erpnext.doctype.excelus_customer_inquiry.excelus_customer_inquiry.calculate_fetch_item",
+                //method: "calculate_fetch_item",
+
                 args: {
                     "req_items": frm.doc.ci_requirements
                 },
                 callback: function(r, rt) {
                     if(r.message) {
-                    frm.clear_table("ci_items");
-                    $.each(r.message, function(i, d) {
-                    var c = frm.add_child("ci_items");
-                    c.item = d.item_code;
-                    c.qty = d.qty;
-                    c.uom = d.stock_uom;
-                    });
-}
-refresh_field("ci_items");
-            frm.layout.refresh_sections();
+                        frm.clear_table("ci_items");
+                        $.each(r.message, function(i, d) {
+                        var c = frm.add_child("ci_items");
+                        c.item = d.item_code;
+                        c.qty = d.qty;
+                        c.uom = d.stock_uom;
+                        });
+                    }
+                    refresh_field("ci_items");
+                    frm.layout.refresh_sections();
                 }
             });
         });
+        frm.add_custom_button(__("PDF"), function() {
+            frappe.call({
+                method: "excelus_erpnext.api.excelus_get_pdf",
+                callback: function(r) {
+                    if(!r.exc) {
+                        frappe.msgprint(r);
+                    } else {
+                        frappe.msgprint(__("Broken pdf Link."));
+                    }
+                }
+            });
+    },__("Export"));
 	}
 });
 
