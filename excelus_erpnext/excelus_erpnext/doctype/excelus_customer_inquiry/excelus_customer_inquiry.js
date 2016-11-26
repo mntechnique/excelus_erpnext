@@ -42,7 +42,7 @@ frappe.ui.form.on('Excelus Customer Inquiry', {
             frappe.call({
                 method: "excelus_erpnext.api.print_pdf",
                   args: {
-                    "html": frm.doc.ci_requirements
+                    "ci_requirements": frm.doc.ci_requirements
                 },
                 callback: function(r) {
                     if(!r.exc) {
@@ -59,3 +59,12 @@ frappe.ui.form.on('Excelus Customer Inquiry', {
 
 cur_frm.add_fetch("item" ,"default_bom","bom")
 
+/*frappe.ui.form.on("Excelus Customer Inquiry Item", "customer_rate", function(frm, cdt, cdn) {
+    for (var i = frm.doc.ci_items.length - 1; i >= 0; i--) {
+        if(ci_items[i.frm.doc.customer_rate] <= 0){
+            frappe.msgprint("customer rate should be greater than zero ");
+        }
+    }
+});
+
+*/
