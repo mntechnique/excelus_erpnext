@@ -12,12 +12,21 @@ class ExcelusCustomerInquiry(Document):
         self.validate_ci_item()
 
     def validate_ci_item(self):
+        items_without_rate_from = [x for x in self.ci_items if x.rate_from == ""]
+        if len(items_without_rate_from) > 0:
+            frappe.throw(_("Please set 'Rate From' in all items."))
+
+
+        #items_rate_from_customer = [x for x in self.ci_items if x.rate_from = "Customer"]
+        count = 1
         for item in self.ci_items:
+            # if item.rate_from == "Customer" and item.customer_rate:
             if item.customer_rate >= 0:
                 if not item.rate_from == "Customer" and item.customer_rate==0 :
-                    frappe.throw(_("Customer Rate should be greater than zero. if Rate from is other than customer. "))
+                    frappe.throw(_("Customer Rate should be greater than zero at row " + str(count) +" item: {0}. Beacuse Rate from is other than customer. ").format(item.item))
             else:
                 frappe.throw(_("Customer Rate should not be less than zero."))
+            count = count+1
 
 
 @frappe.whitelist()
