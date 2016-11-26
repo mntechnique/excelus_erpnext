@@ -20,7 +20,6 @@ frappe.ui.form.on('Excelus Customer Inquiry', {
             frappe.call({
                 method: "excelus_erpnext.excelus_erpnext.doctype.excelus_customer_inquiry.excelus_customer_inquiry.calculate_fetch_item",
                 //method: "calculate_fetch_item",
-
                 args: {
                     "req_items": frm.doc.ci_requirements
                 },
@@ -41,17 +40,22 @@ frappe.ui.form.on('Excelus Customer Inquiry', {
         });
         frm.add_custom_button(__("PDF"), function() {
             frappe.call({
-                method: "excelus_erpnext.api.excelus_get_pdf",
+                method: "excelus_erpnext.api.print_pdf",
+                  args: {
+                    "html": frm.doc.ci_requirements
+                },
                 callback: function(r) {
                     if(!r.exc) {
-                        frappe.msgprint(r);
+                        //frappe.msgprint(r);
+                        console.log(r);
                     } else {
                         frappe.msgprint(__("Broken pdf Link."));
                     }
                 }
             });
-    },__("Export"));
+        },__("Export"));
 	}
 });
 
 cur_frm.add_fetch("item" ,"default_bom","bom")
+
