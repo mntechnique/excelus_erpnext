@@ -28,6 +28,11 @@ class ExcelusCustomerInquiry(Document):
                 frappe.throw(_("Customer Rate should not be less than zero."))
             count = count+1
 
+            #Set item group in items
+            item_group = frappe.db.get_value("Item", item.item, "item_group")
+            if item.item_group != item_group:
+                item.item_group = item_group
+
 
 @frappe.whitelist()
 def calculate_fetch_item(req_items):
