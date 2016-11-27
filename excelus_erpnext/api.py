@@ -91,7 +91,6 @@ def awfis_test():
 
 
 
-
 html_params = frappe._dict({
 })
 
@@ -132,3 +131,7 @@ def excelus_get_pdf(html, options=None):
 def cleanup(fname):
 	if os.path.exists(fname):
 		os.remove(fname)
+
+
+def bom_validate(self, method):
+	self.excelus_item_group = frappe.get_value("Item", self.item, "item_group")

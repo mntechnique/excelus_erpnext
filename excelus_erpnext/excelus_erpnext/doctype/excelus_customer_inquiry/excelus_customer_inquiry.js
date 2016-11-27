@@ -40,17 +40,20 @@ frappe.ui.form.on('Excelus Customer Inquiry', {
             });
         });
         frm.add_custom_button(__("PDF"), function() {
-            frappe.call({
-                method: "excelus_erpnext.api.excelus_get_pdf",
-                callback: function(r) {
-                    if(!r.exc) {
-                        frappe.msgprint(r);
-                    } else {
-                        frappe.msgprint(__("Broken pdf Link."));
-                    }
-                }
+            //console.log(frm.doc.items);
+            var requirements = [];
+
+            $.each(cur_frm.doc.ci_requirements, function(key, value){
+                requirements.push(value.name);
             });
-    },__("Export"));
+
+            var w = window.open("/api/method/excelus_erpnext.ci_print.print_ci?"
+                +"ci_name=" + cur_frm.doc.name + "&requirements="+encodeURIComponent(requirements));
+    
+            if(!w) {
+                frappe.msgprint(__("Please enable pop-ups")); return;
+            }
+        },__("Export"));
 	}
 });
 
