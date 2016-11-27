@@ -70,13 +70,11 @@ app_license = "GPL v3"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-#	}
-# }
+doc_events = {
+	"BOM": {
+		"validate": "excelus_erpnext.api.excelus_bom_validate",
+	}
+}
 
 # Scheduled Tasks
 # ---------------
@@ -111,3 +109,25 @@ app_license = "GPL v3"
 # 	"frappe.desk.doctype.event.event.get_events": "excelus_erpnext.event.get_events"
 # }
 
+fixtures = [{"dt":"Property Setter"},{"dt": "Custom Field", "filters":[["name", "in", [
+"Item-excelus_pm_length_uom",
+"Item-cb_excelus_item_details_02",
+"Item-sb_excelus_details_01",
+"Item-excelus_pm_thickness_uom",
+"Item-excelus_pm_thickness",
+"Item-cb_excelus_item_dtls_01",
+"Item-excelus_packs_per_carton",
+"Item-excelus_pm_wastage",
+"Item-excelus_pm_height_uom",
+"Item-excelus_pm_height",
+"Item-excelus_pm_width_uom",
+"Item-excelus_pm_width",
+"Item-excelus_pm_fold_bleed_uom",
+"Item-excelus_pm_fold_bleed",
+"Item-excelus_pm_flap_bleed_uom",
+"Item-excelus_pm_flap_bleed",
+"Item-excelus_pm_length",
+"Item-excelus_conversion_cost",
+"Item-sb_excelus_item_details"
+]]]},
+{"dt": "Custom Script", "filters":[["name", "in", ['Item-client', 'BOM-client']]]}]
