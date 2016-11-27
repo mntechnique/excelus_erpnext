@@ -30,7 +30,6 @@
         <td>{{ item_details.carton_content_weight }}</td>
         <td>{{ item_details.rm_cost_per_kg }}</td>
         <td>{{ item_details.pm_cost_per_kg }}</td>
-        <td>{{ item_details.pm_cost_per_kg }}</td>
         <td>{{ item_details.processing_cost_per_kg }}</td>
         <td>{{ item_details.total_cost_per_kg }}</td>
         <td>{{ item_details.cost_per_case }}</td>
@@ -48,10 +47,10 @@
           <th style="width: 20%; text-align: right;">RM Cost/kg of FG</th>
         </tr>
         {% set idx_rm = 1 %}
-        {% for rm_item in rm_items %}
+        {% for rm_item in rm_items["items"] %}
           <tr>
             <td>{{ idx_rm }}</td>
-            <td> {{ rm_item.item_name }}</td>
+            <td>{{ rm_item.item_name }}</td>
             <td>{{ rm_item.qty }}</td>
             <td>{{ rm_item.rate }}</td>
             <td>{{ rm_item.cost }}</td>
@@ -60,7 +59,7 @@
         {% endfor %}
         <tr>
           <td colspan="4">Total</td>
-          <td colspan="2">{{ rm_items.total }}</td>
+          <td colspan="2">{{ rm_items["total"] }}</td>
         </tr>
       </tbody>
   </table>
@@ -74,41 +73,21 @@
           <th style="width: 20%; text-align: right;">Packs/case</th>
           <th style="width: 20%; text-align: right;">PM Cost/kg of FG</th>
         </tr>
-        <tr>
-          <td>1</td>
-          <td>RUS 303 - Film for Rings cheese ruckuss 16 gm pack</td>
-          <td>Film</td>
-          <td>16</td>
-          <td>168</td>
-          <td>52.35</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>RUSN5 - Carton for Rings cheese ruckuss 16 gm packs</td>
-          <td>Carton</td>
-          <td>16</td>
-          <td>168</td>
-          <td>15.63</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>RUSBOPP - BOPP tape for ruckuss cartons</td>
-          <td>BOPP tape</td>
-          <td>16</td>
-          <td>168</td>
-          <td>0.39</td>
-        </tr>
-        <tr>
-          <td">4</td>
-          <td">Insert</td>
-          <td">Other</td>
-          <td">16</td>
-          <td">168</td>
-          <td">23.75</td>
-        </tr>
+        {% set idx_pm = 1 %}
+        {% for pm_item in pm_items["items"] %}
+          <tr>
+            <td>{{ idx_pm }}</td>
+            <td>{{ pm_item.item_name }}</td>
+            <td>{{ pm_item.item_group }}</td>
+            <td>{{ pm_item.qty }}</td>
+            <td>{{ pm_item.rate }}</td>
+            <td>{{ pm_item.cost }}</td>
+          </tr>
+          {% set idx_pm = idx_pm + 1 %}
+        {% endfor %}
         <tr>
           <td colspan="5" style="text-align:right;">Total</td>
-          <td colspan="1" style="text-align:right;">92.11</td>
+          <td colspan="1" style="text-align:right;">{{ pm_items["total"] }}</td>
         </tr>
       </tbody>
   </table>
@@ -121,8 +100,8 @@
         </tr>
         <tr>
           <td style="width: 10%;">1</td>
-            <td>Rings cheese ruckuss</td>
-            <td style="text-align:right;">20</td>
+            <td>{{ conversion_item.item_name }}</td>
+            <td style="text-align:right;">{{ conversion_item.conversion_cost }}</td>
         </tr>
       </tbody>
   </table>

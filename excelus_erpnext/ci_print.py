@@ -24,15 +24,14 @@ def prepare_ci(ci_name, requirements):
 		carton_item_code = frappe.db.get_value("BOM Item", {"parent": requirement.bom, "excelus_item_group": "PM - Carton"}, "item_code")
 		item_details.update({"packs_per_carton": frappe.db.get_value("Item", carton_item_code, "excelus_packs_per_carton")})
 
-	
 		carton_content_weight = (item_details["packs_per_carton"] * item_details["pack_weight"]) / (10**3)
 		item_details.update({"carton_content_weight": carton_content_weight})		
-
 
 		#Prepare BOM
 		bom_items_rm = frappe.get_all("BOM Item", filters=[["parent","=", requirement.bom],["item_code", "like", "RM%"]], fields=['*'])
 		bom_items_pm = frappe.get_all("BOM Item", filters=[["parent","=", requirement.bom],["item_code", "like", "PM%"]], fields=['*'])
 	
+
 		prepared_bom_items_rm = frappe._dict({"items": [], "total": 0.0 })
 		prepared_bom_items_pm = frappe._dict({"items": [], "total": 0.0 })
 
@@ -41,8 +40,8 @@ def prepare_ci(ci_name, requirements):
 		for item_rm in bom_items_rm:
 			customer_rate_item_rm = frappe.db.get_value("Excelus Customer Inquiry Item", {"item": item_rm.item_code}, "customer_rate")
 			cost_per_kg_fg_rm = item_rm.qty * customer_rate_item_rm
-			total_cost_per_kg_fg_rm += cost_per_kg_fg_rm
-			
+			total_cost_per_kg_fg_rm += float(cost_per_kg_fg_rm)
+
 			prepared_bom_item_rm = frappe._dict(
 				{"item_name": item_rm.item_name, 
 				"qty": item_rm.qty, 
@@ -50,23 +49,31 @@ def prepare_ci(ci_name, requirements):
 				"cost": cost_per_kg_fg_rm})
 			prepared_bom_items_rm['items'].append(prepared_bom_item_rm)
 
-		prepared_bom_item_rm.total = total_cost_per_kg_fg_rm
+		prepared_bom_items_rm["total"] = total_cost_per_kg_fg_rm
 
 		total_cost_per_kg_fg_pm = 0.0
 		for item_pm in bom_items_pm:
 			customer_rate_item_pm = frappe.db.get_value("Excelus Customer Inquiry Item", {"item": item_pm.item_code}, "customer_rate")
 			cost_per_kg_fg_pm = item_pm.qty * customer_rate_item_pm
-			total_cost_per_kg_fg_pm += cost_per_kg_fg_pm
+			total_cost_per_kg_fg_pm += float(cost_per_kg_fg_pm)
 
-			prepared_bom_item_pm = frappe._dict({"item_name": item_pm.item_name, "qty": item_pm.qty, "rate": customer_rate_item_pm, "cost": cost_per_kg_fg_pm})
-			prepared_bom_items_pm["items"].append(prepared_bom_items_pm)
+			prepared_bom_item_pm = frappe._dict(
+				{"item_name": item_pm.item_name, 
+				"item_group": item_pm.excelus_item_group, 
+				"qty": item_pm.qty, 
+				"rate": customer_rate_item_pm, 
+				"cost": cost_per_kg_fg_pm})
+			prepared_bom_items_pm["items"].append(prepared_bom_item_pm)
 
-		prepared_bom_items_pm.total = total_cost_per_kg_fg_pm
+		prepared_bom_items_pm["total"] = total_cost_per_kg_fg_pm
 
-		prepared_conversion_item = frappe._dict({"item": requirement.item, "conversion_cost": frappe.db.get_value("Item", requirement.item, "excelus_conversion_cost") })
 
-		item_details.update({"rm_cost_per_kg": prepared_bom_items_rm.total })
-		item_details.update({"pm_cost_per_kg": prepared_bom_items_pm.total })
+		prepared_conversion_item = frappe._dict(
+			{"item_name": requirement.item, 
+			"conversion_cost": frappe.db.get_value("Item", requirement.item, "excelus_conversion_cost") })
+
+		item_details.update({"rm_cost_per_kg": prepared_bom_items_rm.get("total") })
+		item_details.update({"pm_cost_per_kg": prepared_bom_items_pm.get("total") })
 		item_details.update({"processing_cost_per_kg": prepared_conversion_item.get("conversion_cost") })
 
 		total_cost_per_kg = item_details["rm_cost_per_kg"] + item_details["pm_cost_per_kg"] + item_details["processing_cost_per_kg"]
@@ -75,7 +82,7 @@ def prepare_ci(ci_name, requirements):
 		cost_per_case  = total_cost_per_kg * carton_content_weight	
 		item_details.update({"cost_per_case": cost_per_case})
 
-		cost_per_pouch = total_cost_per_kg * pack_weight
+		cost_per_pouch = (total_cost_per_kg * pack_weight) / (10**3)
 		item_details.update({"cost_per_pouch": cost_per_pouch})		
 
 		print_params = frappe._dict({
@@ -89,8 +96,8 @@ def prepare_ci(ci_name, requirements):
 
 		html += ci_print_html
 
-
 	return html
+
 
 @frappe.whitelist()
 def print_ci(ci_name, requirements):
