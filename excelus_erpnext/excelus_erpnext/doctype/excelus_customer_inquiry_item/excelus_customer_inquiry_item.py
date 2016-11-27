@@ -8,12 +8,4 @@ from frappe import _
 from frappe.model.document import Document
 
 class ExcelusCustomerInquiryItem(Document):
-    def validate(self):
-        self.validate_ci_item()
-
-    def validate_ci_item(self):
-        if self.customer_rate >= 0.0:
-            if not rate_form == "Customer" & customer_rate==0.0:
-                frappe.throw(_("Customer Rate should be greater than zero."))
-        else:
-            frappe.throw(_("Customer Rate should not be less than zero."))
+    pass
