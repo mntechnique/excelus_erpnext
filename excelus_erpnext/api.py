@@ -153,5 +153,6 @@ def cleanup(fname):
 	if os.path.exists(fname):
 		os.remove(fname)
 
-def bom_validate(self, method):
-	self.excelus_item_group = frappe.get_value("Item", self.item, "item_group")
+def excelus_bom_validate(self, method):
+	for item in self.items:
+		item.excelus_item_group = frappe.get_value("Item", item.item_code, "item_group")
