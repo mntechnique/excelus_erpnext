@@ -48,11 +48,23 @@ frappe.ui.form.on('Excelus Customer Inquiry', {
 
             var w = window.open("/api/method/excelus_erpnext.ci_print.print_ci?"
                 +"ci_name=" + cur_frm.doc.name + "&requirements="+encodeURIComponent(requirements));
-    
+
             if(!w) {
                 frappe.msgprint(__("Please enable pop-ups")); return;
             }
         },__("Export"));
+        //  frm.add_custom_button(__("PDF"), function() {
+        //     //console.log(frm.doc.items);
+        //    frappe.call({
+        //         method: "excelus_erpnext.api.print_pdf",
+        //         //method: "calculate_fetch_item",
+        //         args: {
+        //             "ci_requirements": frm.doc.ci_requirements
+        //         },
+        //         callback: function(r, rt) {
+        //             msgprint(r);
+        //         }
+        // },__("Export"));
 	}
 });
 
