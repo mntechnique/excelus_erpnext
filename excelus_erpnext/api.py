@@ -90,24 +90,19 @@ def awfis_test():
         print frappe.request.headers
 
 @frappe.whitelist()
-def print_pdf(ci_requirements):
+
+def print_pdf(html):
     # if not frappe.has_permission("Excelus Customer Inquiry ", "write"):
     #   frappe.throw(_("Not permitted"), frappe.PermissionError)
 
-    html_params = frappe._dict({
-        "ci_requirements": ci_requirements
-    })
+    # html_params = frappe._dict({
+    #     "ci_requirements": ci_requirements
+    # })
 
-    html = frappe.render_template("excelus_erpnext/templates/includes/excelus_cost_sheet.html", html_params)
     #html = "<h1>Hello world</h1>"
 
     pdf_options = {
-        "page-height" : "25.4cm",
-        "page-width" : "17.5cm",
-        "margin-top": "0mm",
-        "margin-bottom": "0mm",
-        "margin-left": "0mm",
-        "margin-right": "0mm",
+        "orientation" : "Landscape",
         "no-outline": None,
         "encoding": "UTF-8",
         "title": "Cost Sheet"
@@ -153,5 +148,6 @@ def cleanup(fname):
 	if os.path.exists(fname):
 		os.remove(fname)
 
-def bom_validate(self, method):
-	self.excelus_item_group = frappe.get_value("Item", self.item, "item_group")
+def excelus_bom_validate(self, method):
+	for item in self.items:
+		item.excelus_item_group = frappe.get_value("Item", item.item_code, "item_group")

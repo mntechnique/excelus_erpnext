@@ -1,13 +1,30 @@
-
-  <div>
+<style type="text/css">
+table, th, td
+{
+  border-collapse: collapse;
+  border: 0.5px solid grey;
+  font-size: 10px;
+}
+table{
+  margin: 5px;
+}
+td, th
+{
+  padding:5px;
+}
+.ta-right{
+  text-align: right;
+}
+</style>
+  <div style="font-size:12px">
     <div>Cost Sheet No : {{ci.name}}</div>
     <div>Date : {{ci.creation|global_date_format }}</div>
     <div>Customer : {{ci.customer}}</div>
     <div>Valid From : </div>
     <div>Valid To : </div>
-  </div> 
+  </div>
 
-  <table class="table table-bordered">
+  <table class="table table-striped table-bordered table-condensed">
     <tbody>
       <tr>
         <th style="width: 3%;">Sr No.</th>
@@ -25,23 +42,23 @@
       <tr>
         <td>1</td>
         <td>{{ item_details.item_name }}</td>
-        <td >{{ item_details.pack_weight }} </td>
-        <td >{{ item_details.packs_per_carton }}</td>
-        <td>{{ item_details.carton_content_weight }}</td>
-        <td>{{ item_details.rm_cost_per_kg }}</td>
-        <td>{{ item_details.pm_cost_per_kg }}</td>
-        <td>{{ item_details.processing_cost_per_kg }}</td>
-        <td>{{ item_details.total_cost_per_kg }}</td>
-        <td>{{ item_details.cost_per_case }}</td>
-        <td>{{ item_details.cost_per_pouch }}</td>
+        <td class="ta-right">{{ item_details.pack_weight }} </td>
+        <td class="ta-right">{{ item_details.packs_per_carton }}</td>
+        <td class="ta-right">{{ item_details.carton_content_weight }}</td>
+        <td class="ta-right">{{ item_details.rm_cost_per_kg }}</td>
+        <td class="ta-right">{{ item_details.pm_cost_per_kg }}</td>
+        <td class="ta-right">{{ item_details.processing_cost_per_kg }}</td>
+        <td class="ta-right">{{ item_details.total_cost_per_kg }}</td>
+        <td class="ta-right">{{ item_details.cost_per_case }}</td>
+        <td class="ta-right">{{ item_details.cost_per_pouch }}</td>
       </tr>
     </tbody>
   </table>
-  <table class="table table-bordered">
+  <table class="table table-striped table-bordered table-condensed">
     <tbody>
-        <tr> 
-          <th style="width: 10%;">Sr No.</th>
-          <th style="width: 30%;">RM</th>
+        <tr>
+          <th style="width: 3%;">Sr No.</th>
+          <th style="width: 37%;">RM</th>
           <th style="width: 20%; text-align: right;">Qty/kg</th>
           <th style="width: 20%; text-align: right;">Rate/kg</th>
           <th style="width: 20%; text-align: right;">RM Cost/kg of FG</th>
@@ -51,9 +68,9 @@
           <tr>
             <td>{{ idx_rm }}</td>
             <td>{{ rm_item.item_name }}</td>
-            <td>{{ rm_item.qty }}</td>
-            <td>{{ rm_item.rate }}</td>
-            <td>{{ rm_item.cost }}</td>
+            <td class="ta-right">{{ rm_item.qty }}</td>
+            <td class="ta-right">{{ rm_item.rate }}</td>
+            <td class="ta-right">{{ rm_item.cost }}</td>
           </tr>
           {% set idx_rm = idx_rm + 1 %}
         {% endfor %}
@@ -63,11 +80,11 @@
         </tr>
       </tbody>
   </table>
-  <table class="table table-bordered">
+  <table class="table table-striped table-bordered table-condensed">
     <tbody>
         <tr>
-          <th style="width: 10%;">Sr No.</th>
-          <th style="width: 30%;">PM</th>
+          <th style="width: 3%;">Sr No.</th>
+          <th style="width: 37%;">PM</th>
           <th style="width: 10%;">PM Type</th>
           <th style="width: 10%; text-align: right;">Pack Size gm</th>
           <th style="width: 20%; text-align: right;">Packs/case</th>
@@ -79,9 +96,9 @@
             <td>{{ idx_pm }}</td>
             <td>{{ pm_item.item_name }}</td>
             <td>{{ pm_item.item_group }}</td>
-            <td>{{ pm_item.qty }}</td>
-            <td>{{ pm_item.rate }}</td>
-            <td>{{ pm_item.cost }}</td>
+            <td class="ta-right">{{ pm_item.qty }}</td>
+            <td class="ta-right">{{ pm_item.rate }}</td>
+            <td class="ta-right">{{ pm_item.cost }}</td>
           </tr>
           {% set idx_pm = idx_pm + 1 %}
         {% endfor %}
@@ -91,7 +108,7 @@
         </tr>
       </tbody>
   </table>
-  <table class="table table-bordered">
+  <table class="table table-striped table-bordered table-condensed  ">
     <tbody>
       <tr>
           <th>Sr No</th>
@@ -99,9 +116,10 @@
           <th style="text-align:right;">Conv Cost/kg of FG</th>
         </tr>
         <tr>
-          <td style="width: 10%;">1</td>
+          <td>1</td>
             <td>{{ conversion_item.item_name }}</td>
             <td style="text-align:right;">{{ conversion_item.conversion_cost }}</td>
         </tr>
       </tbody>
   </table>
+  <div style="page-break-after:always;"></div>
