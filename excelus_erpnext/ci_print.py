@@ -55,6 +55,7 @@ def prepare_ci(ci_name, requirements):
 			prepared_bom_items_rm['items'].append(prepared_bom_item_rm)
 
 		prepared_bom_items_rm["total"] = total_cost_per_kg_fg_rm
+		prepared_bom_items_rm["total_in_words"] = frappe.utils.data.money_in_words(total_cost_per_kg_fg_rm)
 
 		total_cost_per_kg_fg_pm = 0.0
 		for item_pm in bom_items_pm:
@@ -71,6 +72,7 @@ def prepare_ci(ci_name, requirements):
 			prepared_bom_items_pm["items"].append(prepared_bom_item_pm)
 
 		prepared_bom_items_pm["total"] = total_cost_per_kg_fg_pm
+		prepared_bom_items_pm["total_in_words"] = frappe.utils.data.money_in_words(total_cost_per_kg_fg_pm)
 
 
 		prepared_conversion_item = frappe._dict(
