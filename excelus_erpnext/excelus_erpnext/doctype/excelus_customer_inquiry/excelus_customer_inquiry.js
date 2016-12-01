@@ -52,7 +52,7 @@ frappe.ui.form.on('Excelus Customer Inquiry', {
             if(!w) {
                 frappe.msgprint(__("Please enable pop-ups")); return;
             }
-        },__("Export"));
+        },__("Print Cost Sheet"));
         //  frm.add_custom_button(__("PDF"), function() {
         //     //console.log(frm.doc.items);
         //    frappe.call({
