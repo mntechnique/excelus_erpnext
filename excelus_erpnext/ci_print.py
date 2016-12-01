@@ -22,9 +22,9 @@ def prepare_ci(ci_name, requirements):
 
 		# Fetch Packs Per Carton: Look up Carton among BOM items for the FG
 		carton_item_code = frappe.db.get_value("BOM Item", {"parent": requirement.bom, "excelus_item_group": "PM - Carton"}, "item_code")
-		for x in xrange(1,10):
-			print "BOM", requirement.bom
-			print "Carton item code", carton_item_code
+		# for x in xrange(1,10):
+		# 	print "BOM", requirement.bom
+		# 	print "Carton item code", carton_item_code
 		item_details.update({"packs_per_carton": frappe.db.get_value("Item", carton_item_code, "excelus_packs_per_carton")})
 
 		carton_content_weight = (item_details["packs_per_carton"] * item_details["pack_weight"]) / (10**3)
@@ -40,11 +40,13 @@ def prepare_ci(ci_name, requirements):
 
 		#Calculate total cost/kg for fg for RM
 		total_cost_per_kg_fg_rm = 0.0
+
+		#print {"RM Items" : bom_items_rm}
+
 		for item_rm in bom_items_rm:
-			customer_rate_item_rm = frappe.db.get_value("Excelus Customer Inquiry Item", {"item": item_rm.item_code}, "customer_rate")
+			customer_rate_item_rm = frappe.db.get_value("Excelus Customer Inquiry Item", {"parent": ci_name, "item": item_rm.item_code}, "customer_rate")
 			cost_per_kg_fg_rm = item_rm.qty * customer_rate_item_rm
 			total_cost_per_kg_fg_rm += float(cost_per_kg_fg_rm)
-
 			prepared_bom_item_rm = frappe._dict(
 				{"item_name": item_rm.item_name,
 				"qty": item_rm.qty,
@@ -56,7 +58,7 @@ def prepare_ci(ci_name, requirements):
 
 		total_cost_per_kg_fg_pm = 0.0
 		for item_pm in bom_items_pm:
-			customer_rate_item_pm = frappe.db.get_value("Excelus Customer Inquiry Item", {"item": item_pm.item_code}, "customer_rate")
+			customer_rate_item_pm = frappe.db.get_value("Excelus Customer Inquiry Item", {"parent": ci_name, "item": item_pm.item_code}, "customer_rate")
 			cost_per_kg_fg_pm = item_pm.qty * customer_rate_item_pm
 			total_cost_per_kg_fg_pm += float(cost_per_kg_fg_pm)
 

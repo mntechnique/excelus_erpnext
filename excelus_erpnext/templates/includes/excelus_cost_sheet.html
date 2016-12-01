@@ -23,34 +23,46 @@ td, th
     <div>Valid From : </div>
     <div>Valid To : </div>
   </div>
+  
+  {% set currency_symbol = frappe.db.get_value("Currency", "INR", "symbol") %}
+
+  {% macro format_currency(val) %}
+    {% set df_c = {"fieldtype": "Currency", "options": "currency"} %}
+    {{ currency_symbol + ' ' + frappe.format_value(val, df_c) }}
+  {% endmacro %}
+
+  {% macro format_weight(val, places=3) %}
+    {% set df_w = {"fieldtype": "Float", "precision": "3"} %}
+    {{ frappe.format_value(val, df_w) }}
+  {% endmacro %}
 
   <table class="table table-striped table-bordered table-condensed">
     <tbody>
       <tr>
         <th style="width: 3%;">Sr No.</th>
-        <th style="width: 20%;">Product</th>
+        <th style="width: 25%;">Product</th>
         <th style="width: 5%;">Pack Weight</th>
         <th style="width: 5%; text-align: right;">Pack/Carton</th>
-        <th style="width: 15%; text-align: right;">Carton Content Weight</th>
+        <th style="width: 5%; text-align: right;">Carton Content Weight</th>
         <th style="width: 10%; text-align: right;">RM Cost/kg</th>
         <th style="width: 10%; text-align: right;">PM Cost/kg</th>
         <th style="width: 12%; text-align: right;">Processing Cost/kg</th>
         <th style="width: 10%; text-align: right;">Total Cost/kg</th>
-        <th style="width: 5%; text-align: right;">Cost/case</th>
+        <th style="width: 10%; text-align: right;">Cost/case</th>
         <th style="width: 5%; text-align: right;">Cost/pouch</th>
       </tr>
       <tr>
         <td>1</td>
         <td>{{ item_details.item_name }}</td>
-        <td class="ta-right">{{ item_details.pack_weight }} </td>
-        <td class="ta-right">{{ item_details.packs_per_carton }}</td>
+        <td class="ta-right">{{ format_weight(item_details.pack_weight) }} </td>
+        <td class="ta-right">{{ item_details.packs_per_carton|round(3, "floor") }}</td>
         <td class="ta-right">{{ item_details.carton_content_weight }}</td>
-        <td class="ta-right">{{ item_details.rm_cost_per_kg }}</td>
-        <td class="ta-right">{{ item_details.pm_cost_per_kg }}</td>
-        <td class="ta-right">{{ item_details.processing_cost_per_kg }}</td>
-        <td class="ta-right">{{ item_details.total_cost_per_kg }}</td>
-        <td class="ta-right">{{ item_details.cost_per_case }}</td>
-        <td class="ta-right">{{ item_details.cost_per_pouch }}</td>
+        <td class="ta-right">{{ format_currency(item_details.rm_cost_per_kg) }}</td>
+        <td class="ta-right">{{ format_currency(item_details.pm_cost_per_kg) }}</td>
+        <td class="ta-right">{{ format_currency(item_details.processing_cost_per_kg) }}</td>
+        <td class="ta-right">{{ format_currency(item_details.total_cost_per_kg) }}</td>
+        <td class="ta-right">{{ format_currency(item_details.cost_per_case) }}</td>
+        <td class="ta-right">{{ format_currency(item_details.cost_per_pouch) }}</td>
       </tr>
     </tbody>
   </table>
@@ -68,15 +80,15 @@ td, th
           <tr>
             <td>{{ idx_rm }}</td>
             <td>{{ rm_item.item_name }}</td>
-            <td class="ta-right">{{ rm_item.qty }}</td>
-            <td class="ta-right">{{ rm_item.rate }}</td>
-            <td class="ta-right">{{ rm_item.cost }}</td>
+            <td class="ta-right">{{ format_weight(rm_item.qty) }}</td>
+            <td class="ta-right">{{ format_currency(rm_item.rate) }}</td>
+            <td class="ta-right">{{ format_currency(rm_item.cost) }}</td>
           </tr>
           {% set idx_rm = idx_rm + 1 %}
         {% endfor %}
         <tr>
           <td colspan="4">Total</td>
-          <td colspan="2">{{ rm_items["total"] }}</td>
+          <td colspan="2">{{ format_currency(rm_items["total"]) }}</td>
         </tr>
       </tbody>
   </table>
@@ -96,15 +108,15 @@ td, th
             <td>{{ idx_pm }}</td>
             <td>{{ pm_item.item_name }}</td>
             <td>{{ pm_item.item_group }}</td>
-            <td class="ta-right">{{ pm_item.qty }}</td>
-            <td class="ta-right">{{ pm_item.rate }}</td>
-            <td class="ta-right">{{ pm_item.cost }}</td>
+            <td class="ta-right">{{ pm_item.qty|round(3, "floor") }}</td>
+            <td class="ta-right">{{ format_currency(pm_item.rate) }}</td>
+            <td class="ta-right">{{ format_currency(pm_item.cost) }}</td>
           </tr>
           {% set idx_pm = idx_pm + 1 %}
         {% endfor %}
         <tr>
           <td colspan="5" style="text-align:right;">Total</td>
-          <td colspan="1" style="text-align:right;">{{ pm_items["total"] }}</td>
+          <td colspan="1" style="text-align:right;">{{ format_currency(pm_items["total"]) }}</td>
         </tr>
       </tbody>
   </table>
