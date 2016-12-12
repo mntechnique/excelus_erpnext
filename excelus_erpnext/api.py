@@ -35,16 +35,18 @@ def calculate_carton_qty_per_kg(pack_weight, item_code):
     #fg_carton_per_kg = 1/fg_weight_per_carton
     fg_carton_per_kg = carton_weight/fg_weight_per_carton
 
-    return fg_carton_per_kg, packs_per_carton, carton_width
+    return fg_carton_per_kg, packs_per_carton, carton_width, carton_length
     #return (fg_carton_per_kg * fg_weight_per_carton), packs_per_carton, carton_width
     #return ((fg_carton_per_kg * fg_weight_per_carton) / (10**3)), packs_per_carton, carton_width
 
-def calculate_tape_qty_per_kg(pack_weight, item_code, packs_per_carton, carton_width):
+def calculate_tape_qty_per_kg(pack_weight, item_code, packs_per_carton, carton_length):
+    tape_bleed = frappe.db.get_value("Item", item_code, "excelus_tape_bleed")
     roll_width =  frappe.db.get_value("Item", item_code, "excelus_pm_width")
     tape_gsm = frappe.db.get_value("Item", item_code, "excelus_pm_thickness")
     fg_weight_per_carton  = (pack_weight * packs_per_carton) / (10**3)
-    tape_reqd_per_carton = ((carton_width*2)+(80*2)) / (10**3)
+    tape_reqd_per_carton = ((carton_length*2) + (tape_bleed*4)) / (10**3)
     fg_tape_reqd_per_kg = tape_reqd_per_carton / fg_weight_per_carton
+
 
     return (fg_tape_reqd_per_kg * tape_gsm) / (10**3)
 
@@ -72,7 +74,7 @@ def calculate_pm_qtys(item_code, items):
     film_qty_per_kg = calculate_film_qty_per_kg(pack_weight, film[0])
 
     carton = [x.get("item_code") for x in items if process_item_group(x.get("item_group")) == "pm-carton"]
-    carton_qty_per_kg, packs_per_carton, carton_width = calculate_carton_qty_per_kg(pack_weight, carton[0])
+    carton_qty_per_kg, packs_per_carton, carton_width, carton_length = calculate_carton_qty_per_kg(pack_weight, carton[0])
 
     tape = [x.get("item_code") for x in items if process_item_group(x.get("item_group")) == "pm-tape"]
     tape_qty_per_kg = calculate_tape_qty_per_kg(pack_weight,  tape[0], packs_per_carton, carton_width)
