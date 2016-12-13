@@ -149,7 +149,7 @@ td, th
             <td>{{ pm_item.item_name }}</td>
             <td>{{ pm_item.item_group }}</td>
             <td class="ta-right">{{ pm_item.qty|round(3, "floor") }}</td>
-            <td class="ta-right">{{ format_currency(pm_item.rate) }}</td>
+            <td class="ta-right">{{ pm_item.rate }}</td>
             <td class="ta-right">{{ format_currency(pm_item.cost) }}</td>
           </tr>
           {% set idx_pm = idx_pm + 1 %}
