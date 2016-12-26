@@ -97,7 +97,10 @@ def prepare_ci(ci_name, requirements):
 			"item_details": item_details,
 			"rm_items": prepared_bom_items_rm,
 			"pm_items": prepared_bom_items_pm,
-			"conversion_item": prepared_conversion_item})
+			"conversion_item": prepared_conversion_item, 
+			"print_date": frappe.utils.datetime.datetime.strftime(frappe.utils.datetime.datetime.today(), "%d-%b-%Y"),
+			"print_time": frappe.utils.datetime.datetime.strftime(frappe.utils.datetime.datetime.today(), "%H:%M:%S %p")  
+		})
 
 		ci_print_html = frappe.render_template("excelus_erpnext/templates/includes/excelus_cost_sheet.html", print_params)
 
