@@ -87,19 +87,21 @@ td, th
     <tbody>
       <tr>
         <th style="width: 3%;">Sr No.</th>
-        <th style="width: 25%;">Product</th>
+        <th style="width: 7%;">Item Code</th>
+        <th style="width: 22%;">Product</th>
         <th style="width: 5%;">Pack Weight</th>
         <th style="width: 5%; text-align: right;">Pack/Carton</th>
         <th style="width: 5%; text-align: right;">Carton Content Weight</th>
         <th style="width: 10%; text-align: right;">RM Cost/kg</th>
         <th style="width: 10%; text-align: right;">PM Cost/kg</th>
-        <th style="width: 12%; text-align: right;">Processing Cost/kg</th>
+        <th style="width: 8%; text-align: right;">Processing Cost/kg</th>
         <th style="width: 10%; text-align: right;">Total Cost/kg</th>
         <th style="width: 10%; text-align: right;">Cost/case</th>
         <th style="width: 5%; text-align: right;">Cost/pouch</th>
       </tr>
       <tr>
         <td style="text-align: center;">1</td>
+        <td>{{ item_details.item_code }}</td>
         <td>{{ item_details.item_name }}</td>
         <td class="ta-right">{{ item_details.pack_weight }} </td>
         <td class="ta-right">{{ item_details.packs_per_carton }}</td>
@@ -118,7 +120,8 @@ td, th
     <tbody>
         <tr>
           <th style="width: 3%;">Sr No.</th>
-          <th style="width: 37%;">RM</th>
+          <th style="width: 10%;">Item Code</th>
+          <th style="width: 27%;">RM</th>
           <th style="width: 20%; text-align: right;">Qty/kg</th>
           <th style="width: 20%; text-align: right;">Rate/kg</th>
           <th style="width: 20%; text-align: right;">RM Cost/kg of FG</th>
@@ -127,6 +130,7 @@ td, th
         {% for rm_item in rm_items["items"] %}
           <tr>
             <td style="text-align: center;">{{ idx_rm }}</td>
+            <td>{{ rm_item.item_code }}</td>
             <td>{{ rm_item.item_name }}</td>
             <td class="ta-right">{{ format_weight(rm_item.qty) }}</td>
             <td class="ta-right">{{ format_currency(rm_item.rate) }}</td>
@@ -135,8 +139,8 @@ td, th
           {% set idx_rm = idx_rm + 1 %}
         {% endfor %}
         <tr>
-          <td colspan="4" style="text-align:right;font-weight:bold">Total</td>
-          <td colspan="2" style="text-align:right;font-weight:bold">{{ format_currency(rm_items["total"]) }}</td>
+          <td colspan="5" style="text-align:right;font-weight:bold">Total</td>
+          <td colspan="1" style="text-align:right;font-weight:bold">{{ format_currency(rm_items["total"]) }}</td>
         </tr>
       </tbody>
   </table>
@@ -145,7 +149,8 @@ td, th
     <tbody>
         <tr>
           <th style="width: 3%; text-align: center;">Sr No.</th>
-          <th style="width: 37%;">PM</th>
+          <th style="width: 10%;">Item Code</th>
+          <th style="width: 27%;">PM</th>
           <th style="width: 10%;">PM Type</th>
           <th style="width: 10%; text-align: right;">Pack Size gm</th>
           <th style="width: 20%; text-align: right;">Packs/case</th>
@@ -155,6 +160,7 @@ td, th
         {% for pm_item in pm_items["items"] %}
           <tr>
             <td style="text-align: center;">{{ idx_pm }}</td>
+            <td>{{ pm_item.item_code }}</td>
             <td>{{ pm_item.item_name }}</td>
             <td>{{ pm_item.item_group }}</td>
             <td class="ta-right">{{ pm_item.qty|round(3, "floor") }}</td>
@@ -164,7 +170,7 @@ td, th
           {% set idx_pm = idx_pm + 1 %}
         {% endfor %}
         <tr>
-          <td colspan="5" style="text-align:right; font-weight:bold;">Total</td>
+          <td colspan="6" style="text-align:right; font-weight:bold;">Total</td>
           <td colspan="1" style="text-align:right; font-weight:bold;">{{ format_currency(pm_items["total"]) }}</td>
         </tr>
       </tbody>

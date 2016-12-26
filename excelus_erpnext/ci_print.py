@@ -15,7 +15,9 @@ def prepare_ci(ci_name, requirements):
 	for requirement in ci_requirements:
 		ci = frappe.get_doc("Excelus Customer Inquiry", ci_name)
 
-		item_details = frappe._dict({"item_name": frappe.db.get_value("Item", requirement.item, "item_name")})
+		item_details = frappe._dict({
+			"item_code": frappe.db.get_value("Item", requirement.item, "item_code") or frappe.db.get_value("Item", requirement.item, "name"),
+			"item_name": frappe.db.get_value("Item", requirement.item, "item_name")})
 
 		pack_weight = frappe.db.get_value("Item", requirement.item, "net_weight")
 		item_details.update({"pack_weight": pack_weight})
@@ -48,7 +50,9 @@ def prepare_ci(ci_name, requirements):
 			cost_per_kg_fg_rm = item_rm.qty * customer_rate_item_rm
 			total_cost_per_kg_fg_rm += float(cost_per_kg_fg_rm)
 			prepared_bom_item_rm = frappe._dict(
-				{"item_name": item_rm.item_name,
+				{
+				"item_code": item_rm.item_code or item_name.name,
+				"item_name": item_rm.item_name,
 				"qty": item_rm.qty,
 				"rate": customer_rate_item_rm,
 				"cost": cost_per_kg_fg_rm})
@@ -64,7 +68,9 @@ def prepare_ci(ci_name, requirements):
 			total_cost_per_kg_fg_pm += float(cost_per_kg_fg_pm)
 
 			prepared_bom_item_pm = frappe._dict(
-				{"item_name": item_pm.item_name,
+				{
+				"item_code": item_pm.item_code or item_name.name,
+				"item_name": item_pm.item_name,
 				"item_group": item_pm.excelus_item_group,
 				"qty": item_pm.qty,
 				"rate": customer_rate_item_pm,
