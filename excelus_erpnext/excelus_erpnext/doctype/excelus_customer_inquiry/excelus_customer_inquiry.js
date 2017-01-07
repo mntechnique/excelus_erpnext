@@ -65,6 +65,28 @@ frappe.ui.form.on('Excelus Customer Inquiry', {
         //             msgprint(r);
         //         }
         // },__("Export"));
+        // frm.add_custom_button(__("Fetch Rates"), function(){
+            
+        //     frappe.call({
+        //         method: "excelus_erpnext.excelus_erpnext.doctype.excelus_customer_inquiry.excelus_customer_inquiry.fetch_rates",
+        //         //method: "calculate_fetch_item",
+        //         args: {
+        //             "ci_items": frm.doc.ci_items
+        //         },
+        //         callback: function(r, rt) {
+        //             if(r.message) {
+        //                 $.each(r.message, function(i, d) {
+        //                     var c = frm.doc.ci_requirements.prototype.filter()
+        //                     c.item = d.item_code;
+        //                     c.qty = d.qty;
+        //                     c.uom = d.stock_uom;
+        //                 });
+        //             }
+        //             refresh_field("ci_items");
+        //             frm.layout.refresh_sections();
+        //         }
+        //     });
+        // });
 	}
 });
 

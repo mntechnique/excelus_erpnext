@@ -61,3 +61,23 @@ def calculate_fetch_item(req_items):
 
     return final_items
 
+@frappe.whitelist()
+def get_high_and_low_rates(ci_items):
+    import json
+    ci_items = json.loads(ci_items)
+
+    out = []
+
+    ci_item_codes = [x.item_code for x in ci_items]
+
+    # #Fetch SQ Items for all item codes
+    # sqi_items = frappe.get_all("Supplier Quotation Item", filters=[["item_code", "in", ci_item_codes]], fields=["parent", "item_code", "rate"])
+    
+    #     sqi_items_for_ci_item = [x for x in sqi_items if x.item_code == item.item_code]
+
+    for item in ci_items:
+        sqi_items = frappe.get_all("Supplier Quotation Item", filters=[["item_code", "=", item.item_code]], fields=["parent", "item_code", "rate"])
+        
+
+
+        
