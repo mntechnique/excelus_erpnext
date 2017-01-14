@@ -29,6 +29,7 @@ frappe.ui.form.on('Excelus Customer Inquiry', {
                         $.each(r.message, function(i, d) {
                         var c = frm.add_child("ci_items");
                         c.item = d.item_code;
+                        c.item_name = d.description;
                         c.qty = d.qty;
                         c.uom = d.stock_uom;
                         });
@@ -87,10 +88,18 @@ frappe.ui.form.on('Excelus Customer Inquiry', {
         //         }
         //     });
         // });
-	}
+	},
 });
 
-cur_frm.add_fetch("item" ,"default_bom","bom")
+cur_frm.add_fetch("item" ,"default_bom","bom");
+
+frappe.ui.form.on("Excelus Customer Inquiry Item", "refresh", function(frm, cdt, cdn) {
+    var d = locals[cdt][cdn];
+    frappe.db.get_value("Item", d.item, "item_name", function(r) {
+        r.item_name;
+    });
+});
+cur_frm.add_fetch("item" ,"item_name", "item_name");
 
 /*frappe.ui.form.on("Excelus Customer Inquiry Item", "customer_rate", function(frm, cdt, cdn) {
     for (var i = frm.doc.ci_items.length - 1; i >= 0; i--) {

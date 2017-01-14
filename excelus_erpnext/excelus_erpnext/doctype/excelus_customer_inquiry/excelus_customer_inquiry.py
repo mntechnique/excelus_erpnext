@@ -10,12 +10,12 @@ from frappe.model.document import Document
 class ExcelusCustomerInquiry(Document):
     def validate(self):
         self.validate_ci_item()
+        self.validate_ci_requirements()
 
     def validate_ci_item(self):
         items_without_rate_from = [x for x in self.ci_items if x.rate_from == ""]
         if len(items_without_rate_from) > 0:
             frappe.throw(_("Please set 'Rate From' in all items."))
-
 
         #items_rate_from_customer = [x for x in self.ci_items if x.rate_from = "Customer"]
         count = 1
@@ -33,6 +33,13 @@ class ExcelusCustomerInquiry(Document):
             if item.item_group != item_group:
                 item.item_group = item_group
 
+    def validate_ci_requirements(self):
+        for req in self.ci_requirements:
+            bom_workflow_state = frappe.db.get_value("BOM", req.get("bom"), "workflow_state")
+            if bom_workflow_state != "Approved":
+                frappe.throw(_("Row #{0}: Please select an approved BOM. Current status: {1}".format(req.get('idx'), bom_workflow_state)))
+
+
 
 @frappe.whitelist()
 def calculate_fetch_item(req_items):
@@ -45,6 +52,11 @@ def calculate_fetch_item(req_items):
         # throws error message if default bom not selected for item.
         if not item.get('bom'):
             frappe.throw(_("Please select BOM for all requirement Items"))
+        else:
+            bom_workflow_state = frappe.db.get_value("BOM", item.get("bom"), "workflow_state")
+            if bom_workflow_state != "Approved":
+                frappe.throw(_("Row #{0}: Please select an approved BOM. Current status: {1}".format(item.get('idx'), bom_workflow_state)))
+
         bom_items = frappe.db.get_all("BOM Item", filters={"parent":item.get('bom')}, fields=["*"])
 
         #Calculate (bom item qty / bom qty) * input ci_requirment qty. Addition does becasue of duplicate item in bom.
@@ -80,4 +92,3 @@ def get_high_and_low_rates(ci_items):
         
 
 
-        
