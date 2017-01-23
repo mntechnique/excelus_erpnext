@@ -56,6 +56,9 @@ def prepare_ci(ci_name, requirements):
 				"qty": item_rm.qty,
 				"rate": customer_rate_item_rm,
 				"cost": cost_per_kg_fg_rm})
+			
+			
+
 			prepared_bom_items_rm['items'].append(prepared_bom_item_rm)
 
 		prepared_bom_items_rm["total"] = total_cost_per_kg_fg_rm
@@ -75,6 +78,9 @@ def prepare_ci(ci_name, requirements):
 				"qty": item_pm.qty,
 				"rate": customer_rate_item_pm,
 				"cost": cost_per_kg_fg_pm})
+
+			print "PM ITEM NAME", item_pm.item_code, "QTY", item_pm.qty, "RATE", customer_rate_item_pm, "COST",  cost_per_kg_fg_pm
+
 			prepared_bom_items_pm["items"].append(prepared_bom_item_pm)
 
 		prepared_bom_items_pm["total"] = total_cost_per_kg_fg_pm
