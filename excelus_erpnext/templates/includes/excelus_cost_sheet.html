@@ -25,13 +25,17 @@ td, th
 {% set currency_symbol = frappe.db.get_value("Currency", "INR", "symbol") %}
 
 {% macro format_currency(val, precision=3) %}
-  {% set df_c = {"fieldtype": "Currency", "options": "currency", "precision": precision} %}
-  {{ currency_symbol + ' ' + frappe.format_value(val, df_c) }}
+  {{ currency_symbol + ' ' + format_float(val, precision) }}
 {% endmacro %}
 
 {% macro format_weight(val, precision=4) %}
-  {% set df_w = {"fieldtype": "Float", "precision": precision} %}
-  {{ frappe.format_value(val, df_w) }}
+  {{ format_float(val, precision) }}  
+{% endmacro %}
+
+{% macro format_float(val, precision=4) %}
+  {% set s = '%.12f' % val %}
+  {% set i, p, d = s.partition('.') %}
+  {{ '.'.join([i, (d+'0'* (precision - d|length))[:(precision - d|length)]]) }}
 {% endmacro %}
 
 <div class="heading">

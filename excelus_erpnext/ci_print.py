@@ -15,7 +15,7 @@ def prepare_ci(ci_name, requirements):
 	for requirement in ci_requirements:
 		ci = frappe.get_doc("Excelus Customer Inquiry", ci_name)
 
-		item_details = frappe._dict({
+		item_details = frappe._dict({ 
 			"item_code": frappe.db.get_value("Item", requirement.item, "item_code") or frappe.db.get_value("Item", requirement.item, "name"),
 			"item_name": frappe.db.get_value("Item", requirement.item, "item_name")})
 
