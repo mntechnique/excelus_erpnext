@@ -131,6 +131,7 @@ fixtures = [{"dt":"Property Setter"},{"dt": "Custom Field", "filters":[["name", 
 "Item-excelus_pm_length",
 "Item-excelus_conversion_cost",
 "Item-sb_excelus_item_details",
-"BOM Item-excelus_item_group"
+"BOM Item-excelus_item_group",
+"Item-excelus_fg_category"
 ]]]},
 {"dt": "Custom Script", "filters":[["name", "in", ['Item-client', 'BOM-client']]]}]
