@@ -449,7 +449,7 @@
   "in_filter": 0, 
   "in_list_view": 0, 
   "in_standard_filter": 0, 
-  "insert_after": "excelus_fg_category", 
+  "insert_after": "excelus_rm_category", 
   "label": "Wastage", 
   "modified": "2016-11-12 12:52:19.962168", 
   "name": "Item-excelus_pm_wastage", 
