@@ -33,7 +33,7 @@
   "reqd": 0, 
   "search_index": 0, 
   "unique": 0, 
-  "width": null
+  "width": "71"
  }, 
  {
   "allow_on_submit": 0, 
@@ -69,7 +69,7 @@
   "reqd": 0, 
   "search_index": 0, 
   "unique": 0, 
-  "width": null
+  "width": "69"
  }, 
  {
   "allow_on_submit": 0, 
@@ -249,7 +249,7 @@
   "reqd": 0, 
   "search_index": 0, 
   "unique": 0, 
-  "width": null
+  "width": "74"
  }, 
  {
   "allow_on_submit": 0, 
@@ -321,7 +321,7 @@
   "reqd": 0, 
   "search_index": 0, 
   "unique": 0, 
-  "width": null
+  "width": "56"
  }, 
  {
   "allow_on_submit": 0, 
@@ -393,7 +393,7 @@
   "reqd": 0, 
   "search_index": 0, 
   "unique": 0, 
-  "width": null
+  "width": "57"
  }, 
  {
   "allow_on_submit": 0, 
