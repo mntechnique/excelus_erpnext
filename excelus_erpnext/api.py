@@ -154,3 +154,101 @@ def cleanup(fname):
 def excelus_bom_validate(self, method):
 	for item in self.items:
 		item.excelus_item_group = frappe.get_value("Item", item.item_code, "item_group")
+
+
+#Item csv is treated. All spaces removed. Cannot deal with variants.. Handles conversion factor.
+@frappe.whitelist()
+def excelus_import_items(path_to_sheet):
+	items_json = csv_to_json(path_to_sheet)
+
+	msgs = []
+
+	for item in items_json["data"]:
+		msg = ""
+		msg += "Name: {0}, ".format(item["name"])
+
+		name = frappe.db.get_value("Item", {"name": item["name"]}, "name")
+
+		if not name:
+			i = frappe.new_doc("Item")
+
+			keys = [ik for ik in item.keys() if ik not in ["conversion_factor", "uom", "name"]]
+
+			for key in keys:
+				i.set(key, item[key])
+
+			i.append("uoms", {
+				"uom": item["uom"],
+				"conversion_factor": item["conversion_factor"]
+			})
+
+			try:
+				i.save()
+				msg += "Saved: {0}, ".format(i.name)
+
+				print "About to rename {0} to {1}".format(i.name, item["name"])
+
+				frappe.rename_doc("Item", i.name, item["name"], force=True)
+				frappe.db.commit()
+
+				msg += "Renamed: {0}".format(item["name"])
+			except Exception as e:
+				msg += "Exception: {0}".format(e)
+				frappe.db.rollback()
+		else:
+			msg += "Already exists"
+
+		print msg
+
+		msgs.append(msg)
+
+	return "\n".join(msgs)
+
+def csv_to_json(path, column_headings_row_idx=1, start_parsing_from_idx=2):
+	def process_val(value):
+		out = value.replace("\\", "\\\\").replace('"', '\\"')
+		return out
+
+	import csv
+
+	file_rows = []
+	out_rows = []
+
+	csv_path = frappe.utils.get_site_path() + path 
+
+	#with open('/home/gaurav/Downloads/25a4cbe4397b494a_2016-12-03_2017-01-02.csv', 'rb') as csvfile:
+	with open(csv_path, 'rb') as csvfile:
+
+		rdr = csv.reader(csvfile, delimiter=str(','), quotechar=str('"'))
+	   
+		for row in rdr:
+			file_rows.append(row)
+
+		final_json = {}
+		json_data = final_json.setdefault("data", [])
+		column_headings_row = file_rows[column_headings_row_idx]
+
+		#Handle repeating columns
+		processed_headings_row = []
+		for col in column_headings_row:
+			count = len([x for x in processed_headings_row if x == col])
+			if count > 0:
+				col = col + "_" + str(count)
+			processed_headings_row.append(col)
+
+		for i in xrange(start_parsing_from_idx, len(file_rows)):
+			record_core = ""
+
+			if len(file_rows[i]) == len(processed_headings_row):
+				for j in range(0, len(processed_headings_row)):
+					record_core += '"' +  processed_headings_row[j] + '" : "' + process_val(file_rows[i][j]) + '", '
+
+					#print "Orig", file_rows[i][j], "Treated", process_val(file_rows[i][j])
+
+				record_json_string = "{" + record_core[:-2] + "}"
+
+				json_data.append(json.loads(record_json_string))
+
+		return final_json
+
+		#print "FINAL JSON", final_json
