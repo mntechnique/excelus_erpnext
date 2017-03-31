@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from . import __version__ as app_version
 
@@ -30,7 +29,7 @@ app_license = "GPL v3"
 
 # website user home page (by Role)
 # role_home_page = {
-#	"Role": "home_page"
+#   "Role": "home_page"
 # }
 
 # Website user home page (by function)
@@ -59,11 +58,11 @@ app_license = "GPL v3"
 # Permissions evaluated in scripted ways
 
 # permission_query_conditions = {
-# 	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
+#   "Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
 # }
 #
 # has_permission = {
-# 	"Event": "frappe.desk.doctype.event.event.has_permission",
+#   "Event": "frappe.desk.doctype.event.event.has_permission",
 # }
 
 # Document Events
@@ -71,30 +70,30 @@ app_license = "GPL v3"
 # Hook on document methods and events
 
 doc_events = {
-	"BOM": {
-		"validate": "excelus_erpnext.api.excelus_bom_validate",
-	}
+    "BOM": {
+        "validate": "excelus_erpnext.api.excelus_bom_validate",
+    }
 }
 
 # Scheduled Tasks
 # ---------------
 
 # scheduler_events = {
-# 	"all": [
-# 		"excelus_erpnext.tasks.all"
-# 	],
-# 	"daily": [
-# 		"excelus_erpnext.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"excelus_erpnext.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"excelus_erpnext.tasks.weekly"
-# 	]
-# 	"monthly": [
-# 		"excelus_erpnext.tasks.monthly"
-# 	]
+#   "all": [
+#       "excelus_erpnext.tasks.all"
+#   ],
+#   "daily": [
+#       "excelus_erpnext.tasks.daily"
+#   ],
+#   "hourly": [
+#       "excelus_erpnext.tasks.hourly"
+#   ],
+#   "weekly": [
+#       "excelus_erpnext.tasks.weekly"
+#   ]
+#   "monthly": [
+#       "excelus_erpnext.tasks.monthly"
+#   ]
 # }
 
 # Testing
@@ -106,33 +105,25 @@ doc_events = {
 # ------------------------------
 #
 # override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "excelus_erpnext.event.get_events"
+#   "frappe.desk.doctype.event.event.get_events": "excelus_erpnext.event.get_events"
 # }
 
-fixtures = [{"dt":"Property Setter"},{"dt": "Custom Field", "filters":[["name", "in", [
-"Item-excelus_pm_length_uom",
-"Item-cb_excelus_item_details_02",
-"Item-sb_excelus_details_01",
-"Item-excelus_pm_thickness_uom",
-"Item-excelus_pm_thickness",
-"Item-cb_excelus_item_dtls_01",
-"Item-excelus_packs_per_carton",
-"Item-excelus_pm_wastage",
-"Item-excelus_pm_height_uom",
-"Item-excelus_pm_height",
-"Item-excelus_pm_width_uom",
-"Item-excelus_pm_width",
-"Item-excelus_pm_fold_bleed_uom",
-"Item-excelus_pm_fold_bleed",
-"Item-excelus_pm_flap_bleed_uom",
-"Item-excelus_pm_flap_bleed",
-"Item-excelus_tape_bleed_uom",
-"Item-excelus_tape_bleed",
-"Item-excelus_pm_length",
-"Item-excelus_conversion_cost",
-"Item-sb_excelus_item_details",
-"BOM Item-excelus_item_group",
-"Item-excelus_fg_category",
-"Item-excelus_rm_category"
+fixtures = [{"dt": "Custom Script", "filters":[["name", "in", ['Item-client', 'BOM-client']]]},
+{"dt":"Custom Field", "filters":[["name", "in", [
+"Item-excelus_pm_length_uom","Item-cb_excelus_item_details_02","Item-sb_excelus_details_01",
+"Item-excelus_pm_thickness_uom","Item-excelus_pm_thickness","Item-cb_excelus_item_dtls_01",
+"Item-excelus_packs_per_carton","Item-excelus_pm_wastage","Item-excelus_pm_height_uom",
+"Item-excelus_pm_height","Item-excelus_pm_width_uom","Item-excelus_pm_width",
+"Item-excelus_pm_fold_bleed_uom","Item-excelus_pm_fold_bleed","Item-excelus_pm_flap_bleed_uom",
+"Item-excelus_pm_flap_bleed","Item-excelus_tape_bleed_uom","Item-excelus_tape_bleed",
+"Item-excelus_pm_length","Item-excelus_conversion_cost","Item-sb_excelus_item_details",
+"Item-excelus_price_details","Item-mrp_rate","Item-hsm_code","Item-column_break_item",
+"Item-abetment_rate","BOM Item-excelus_item_group",
+"Customer-customer_tax_details","Customer-vat_no","Customer-cst_no","Customer-excise_no",
+"Customer-service_tax_no","Customer-column_break_tax","Customer-gst_no","Customer-ifsc_no",
+"Customer-account_no","Customer-pan_no",
+"Supplier-supplier_tax_details","Supplier-vat_no","Supplier-cst_no","Supplier-excise_no",
+"Supplier-service_tax_no","Supplier-column_break_supplier_tax","Supplier-gst_no",
+"Supplier-ifsc_no","Supplier-account_no"
 ]]]},
-{"dt": "Custom Script", "filters":[["name", "in", ['Item-client', 'BOM-client']]]}]
+"Property Setter"]
