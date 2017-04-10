@@ -252,3 +252,10 @@ def csv_to_json(path, column_headings_row_idx=1, start_parsing_from_idx=2):
 		return final_json
 
 		#print "FINAL JSON", final_json
+
+def sqtn_autoname(self, method):
+	finyr_start = frappe.utils.datetime.datetime.strptime(frappe.defaults.get_defaults().year_start_date, "%Y-%m-%d").strftime("%y") #frappe.utils.datetime.datetime.strptime(frappe.defaults.get_defaults().year_start_date, "%Y-%m-%d").strftime("%m/%y")
+	finyr_end = frappe.utils.datetime.datetime.strptime(frappe.defaults.get_defaults().year_end_date, "%Y-%m-%d").strftime("%y")
+
+	self.name = self.name + "-" + finyr_start + "/" + finyr_end
+	

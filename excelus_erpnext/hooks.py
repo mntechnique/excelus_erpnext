@@ -72,6 +72,15 @@ app_license = "GPL v3"
 doc_events = {
     "BOM": {
         "validate": "excelus_erpnext.api.excelus_bom_validate",
+    },
+    "Purchase Order" : {
+    	"autoname": "excelus_erpnext.api.po_autoname",
+    },
+    "Supplier Quotation" : {
+    	"autoname": "excelus_erpnext.api.sqtn_autoname",
+    },
+    "Purchase Receipt" : {
+    	"autoname": "excelus_erpnext.api.pr_autoname",
     }
 }
 
@@ -108,22 +117,28 @@ doc_events = {
 #   "frappe.desk.doctype.event.event.get_events": "excelus_erpnext.event.get_events"
 # }
 
-fixtures = [{"dt": "Custom Script", "filters":[["name", "in", ['Item-client', 'BOM-client']]]},
-{"dt":"Custom Field", "filters":[["name", "in", [
-"Item-excelus_pm_length_uom","Item-cb_excelus_item_details_02","Item-sb_excelus_details_01",
-"Item-excelus_pm_thickness_uom","Item-excelus_pm_thickness","Item-cb_excelus_item_dtls_01",
-"Item-excelus_packs_per_carton","Item-excelus_pm_wastage","Item-excelus_pm_height_uom",
-"Item-excelus_pm_height","Item-excelus_pm_width_uom","Item-excelus_pm_width",
-"Item-excelus_pm_fold_bleed_uom","Item-excelus_pm_fold_bleed","Item-excelus_pm_flap_bleed_uom",
-"Item-excelus_pm_flap_bleed","Item-excelus_tape_bleed_uom","Item-excelus_tape_bleed",
-"Item-excelus_pm_length","Item-excelus_conversion_cost","Item-sb_excelus_item_details",
-"Item-excelus_price_details","Item-mrp_rate","Item-hsm_code","Item-column_break_item",
-"Item-abetment_rate","BOM Item-excelus_item_group",
-"Customer-customer_tax_details","Customer-vat_no","Customer-cst_no","Customer-excise_no",
-"Customer-service_tax_no","Customer-column_break_tax","Customer-gst_no","Customer-ifsc_no",
-"Customer-account_no","Customer-pan_no",
-"Supplier-supplier_tax_details","Supplier-vat_no","Supplier-cst_no","Supplier-excise_no",
-"Supplier-service_tax_no","Supplier-column_break_supplier_tax","Supplier-gst_no",
-"Supplier-ifsc_no","Supplier-account_no"
-]]]},
-"Property Setter"]
+fixtures = [
+	{"dt": "Custom Script", "filters":[["name", "in", ['Item-client', 'BOM-client']]]},
+	{"dt":"Custom Field", "filters":[["name", "in", [
+			"Item-excelus_pm_length_uom","Item-cb_excelus_item_details_02","Item-sb_excelus_details_01",
+			"Item-excelus_pm_thickness_uom","Item-excelus_pm_thickness","Item-cb_excelus_item_dtls_01",
+			"Item-excelus_packs_per_carton","Item-excelus_pm_wastage","Item-excelus_pm_height_uom",
+			"Item-excelus_pm_height","Item-excelus_pm_width_uom","Item-excelus_pm_width",
+			"Item-excelus_pm_fold_bleed_uom","Item-excelus_pm_fold_bleed","Item-excelus_pm_flap_bleed_uom",
+			"Item-excelus_pm_flap_bleed","Item-excelus_tape_bleed_uom","Item-excelus_tape_bleed",
+			"Item-excelus_pm_length","Item-excelus_conversion_cost","Item-sb_excelus_item_details",
+			"Item-excelus_price_details","Item-mrp_rate","Item-hsm_code","Item-column_break_item",
+			"Item-abetment_rate","BOM Item-excelus_item_group",
+			"Customer-customer_tax_details","Customer-vat_no","Customer-cst_no","Customer-excise_no",
+			"Customer-service_tax_no","Customer-column_break_tax","Customer-gst_no","Customer-ifsc_no",
+			"Customer-account_no","Customer-pan_no",
+			"Supplier-supplier_tax_details","Supplier-vat_no","Supplier-cst_no","Supplier-excise_no",
+			"Supplier-service_tax_no","Supplier-column_break_supplier_tax","Supplier-gst_no",
+			"Supplier-ifsc_no","Supplier-account_no"
+	]]]},
+	{"dt": "Property Setter", "filters":[["name", "in", [
+		"Purchase Receipt-naming_series-options",
+		"Purchase Order-naming_series-options",
+		"Supplier Quotation-naming_series-options"
+	]]]}
+]
