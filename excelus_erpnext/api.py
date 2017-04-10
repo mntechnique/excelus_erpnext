@@ -253,9 +253,31 @@ def csv_to_json(path, column_headings_row_idx=1, start_parsing_from_idx=2):
 
 		#print "FINAL JSON", final_json
 
-def sqtn_autoname(self, method):
+def get_finyr_string():
 	finyr_start = frappe.utils.datetime.datetime.strptime(frappe.defaults.get_defaults().year_start_date, "%Y-%m-%d").strftime("%y") #frappe.utils.datetime.datetime.strptime(frappe.defaults.get_defaults().year_start_date, "%Y-%m-%d").strftime("%m/%y")
 	finyr_end = frappe.utils.datetime.datetime.strptime(frappe.defaults.get_defaults().year_end_date, "%Y-%m-%d").strftime("%y")
+	return finyr_start + "-" + finyr_end
 
-	self.name = self.name + "-" + finyr_start + "/" + finyr_end
+def build_autoname_with_finyr(naming_series):
+	from frappe.model.naming import make_autoname
+
+	ns = naming_series.split("-")
+
+	if len(ns) > 1:
+		ns.insert(len(ns) - 1, get_finyr_string())
+	else:
+		ns.append(get_finyr_string())
+		ns.append("") #For trailing - between finyr and automatically added '#####'
+
+	ns_final = "-".join(ns)
+
+	return make_autoname(ns_final)
 	
+def po_autoname(self, method):
+	self.name = build_autoname_with_finyr(self.naming_series)
+
+def pr_autoname(self, method):
+	self.name = build_autoname_with_finyr(self.naming_series)
+
+def sqtn_autoname(self, method):
+	self.name = build_autoname_with_finyr(self.naming_series)

@@ -74,13 +74,13 @@ doc_events = {
         "validate": "excelus_erpnext.api.excelus_bom_validate",
     },
     "Purchase Order" : {
-    	"autoname": "excelus_erpnext.api.po_autoname",
-    },
-    "Supplier Quotation" : {
-    	"autoname": "excelus_erpnext.api.sqtn_autoname",
+    	"autoname": "excelus_erpnext.api.po_autoname"
     },
     "Purchase Receipt" : {
-    	"autoname": "excelus_erpnext.api.pr_autoname",
+    	"autoname": "excelus_erpnext.api.pr_autoname"
+    },
+    "Supplier Quotation" : {
+    	"autoname": "excelus_erpnext.api.sqtn_autoname"
     }
 }
 
