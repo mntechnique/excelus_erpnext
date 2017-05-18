@@ -134,11 +134,7 @@ fixtures = [
 			"Customer-account_no","Customer-pan_no",
 			"Supplier-supplier_tax_details","Supplier-vat_no","Supplier-cst_no","Supplier-excise_no",
 			"Supplier-service_tax_no","Supplier-column_break_supplier_tax","Supplier-gst_no",
-			"Supplier-ifsc_no","Supplier-account_no"
-	]]]},
-	{"dt": "Property Setter", "filters":[["name", "in", [
-		"Purchase Receipt-naming_series-options",
-		"Purchase Order-naming_series-options",
-		"Supplier Quotation-naming_series-options"
+			"Supplier-ifsc_no","Supplier-account_no",
+			"Purchase Receipt-excelus_pr_no"
 	]]]}
 ]
