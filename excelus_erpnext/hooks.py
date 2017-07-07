@@ -136,5 +136,6 @@ fixtures = [
 			"Supplier-service_tax_no","Supplier-column_break_supplier_tax","Supplier-gst_no",
 			"Supplier-ifsc_no","Supplier-account_no",
 			"Purchase Receipt-excelus_pr_no"
-	]]]}
+	]]]},
+	{"dt": "Print Format", "filters":[["name", "in", ["Excelus Production Order"]]]}
 ]
