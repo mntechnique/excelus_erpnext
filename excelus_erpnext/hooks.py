@@ -143,5 +143,5 @@ fixtures = [
 			"Sales Invoice-date_and_time_of_supply",
 			"Sales Invoice-place_of_supply"
 	]]]},
-	{"dt": "Print Format", "filters":[["name", "in", ["Excelus Production Order"]]]}
+	{"dt": "Print Format", "filters":[["name", "in", ["Excelus Production Order", "Excelus GST Sales Invoice"]]]}
 ]
