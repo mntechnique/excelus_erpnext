@@ -135,7 +135,13 @@ fixtures = [
 			"Supplier-supplier_tax_details","Supplier-vat_no","Supplier-cst_no","Supplier-excise_no",
 			"Supplier-service_tax_no","Supplier-column_break_supplier_tax","Supplier-gst_no",
 			"Supplier-ifsc_no","Supplier-account_no",
-			"Purchase Receipt-excelus_pr_no"
+			"Purchase Receipt-excelus_pr_no",
+			"Sales Invoice-excelus_transporter_details",
+			"Sales Invoice-mode_of_transport",
+			"Sales Invoice-vehicle_no",
+			"Sales Invoice-cb_transporter_details",
+			"Sales Invoice-date_and_time_of_supply",
+			"Sales Invoice-place_of_supply"
 	]]]},
 	{"dt": "Print Format", "filters":[["name", "in", ["Excelus Production Order"]]]}
 ]
