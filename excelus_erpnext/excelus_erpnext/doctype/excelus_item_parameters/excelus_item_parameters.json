@@ -3,6 +3,7 @@
  "allow_guest_to_view": 0, 
  "allow_import": 0, 
  "allow_rename": 0, 
+ "autoname": "field:item", 
  "beta": 0, 
  "creation": "2017-04-07 18:35:55.330794", 
  "custom": 0, 
@@ -13,6 +14,7 @@
  "engine": "InnoDB", 
  "fields": [
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -43,6 +45,7 @@
    "unique": 0
   }, 
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -71,6 +74,7 @@
    "unique": 0
   }, 
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -100,6 +104,7 @@
    "unique": 0
   }, 
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -129,6 +134,7 @@
    "unique": 0
   }, 
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -158,6 +164,7 @@
    "unique": 0
   }, 
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -187,6 +194,7 @@
    "unique": 0
   }, 
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -216,6 +224,7 @@
    "unique": 0
   }, 
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -245,6 +254,7 @@
    "unique": 0
   }, 
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -274,6 +284,7 @@
    "unique": 0
   }, 
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -303,6 +314,7 @@
    "unique": 0
   }, 
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -331,6 +343,7 @@
    "unique": 0
   }, 
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -361,6 +374,7 @@
    "unique": 0
   }, 
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -391,6 +405,7 @@
    "unique": 0
   }, 
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -421,6 +436,7 @@
    "unique": 0
   }, 
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -451,6 +467,7 @@
    "unique": 0
   }, 
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -481,6 +498,7 @@
    "unique": 0
   }, 
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -511,6 +529,7 @@
    "unique": 0
   }, 
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -541,6 +560,7 @@
    "unique": 0
   }, 
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -569,6 +589,7 @@
    "unique": 0
   }, 
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -598,6 +619,7 @@
    "unique": 0
   }, 
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -626,12 +648,13 @@
    "unique": 0
   }, 
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
    "columns": 0, 
    "fieldname": "wastage", 
-   "fieldtype": "Float", 
+   "fieldtype": "Percent", 
    "hidden": 0, 
    "ignore_user_permissions": 0, 
    "ignore_xss_filter": 0, 
@@ -655,6 +678,7 @@
    "unique": 0
   }, 
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -683,6 +707,7 @@
    "unique": 0
   }, 
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -712,12 +737,13 @@
    "unique": 0
   }, 
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
    "columns": 0, 
    "fieldname": "hsm_code", 
-   "fieldtype": "Float", 
+   "fieldtype": "Data", 
    "hidden": 0, 
    "ignore_user_permissions": 0, 
    "ignore_xss_filter": 0, 
@@ -725,7 +751,7 @@
    "in_global_search": 0, 
    "in_list_view": 0, 
    "in_standard_filter": 0, 
-   "label": "HSM Code", 
+   "label": "HSN Code", 
    "length": 0, 
    "no_copy": 0, 
    "permlevel": 0, 
@@ -741,6 +767,7 @@
    "unique": 0
   }, 
   {
+   "allow_bulk_edit": 0, 
    "allow_on_submit": 0, 
    "bold": 0, 
    "collapsible": 0, 
@@ -780,7 +807,7 @@
  "issingle": 0, 
  "istable": 0, 
  "max_attachments": 0, 
- "modified": "2017-04-07 19:05:40.317558", 
+ "modified": "2018-01-08 21:02:11.599080", 
  "modified_by": "Administrator", 
  "module": "Excelus ERPNext", 
  "name": "Excelus Item Parameters", 

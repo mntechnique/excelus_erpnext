@@ -281,3 +281,18 @@ def pr_autoname(self, method):
 
 def sqtn_autoname(self, method):
 	self.name = build_autoname_with_finyr(self.naming_series)
+
+@frappe.whitelist()
+def item_parameter_button(item):
+	try:
+		new_item_parameter = frappe.new_doc("Excelus Item Parameters")
+		new_item_parameter.item = item
+		new_item_parameter.save()
+		frappe.db.commit()
+		return new_item_parameter
+	except Exception as e:
+		frappe.throw("Unable to add Reason: {0}".format(e))
+
+
+
+	
