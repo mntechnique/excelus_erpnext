@@ -284,15 +284,12 @@ def sqtn_autoname(self, method):
 
 @frappe.whitelist()
 def item_parameter_button(item):
-	try:
+	existing_param = frappe.db.get_value("Excelus Item Parameters", item)
+	if existing_param:
+		params_instance = frappe.get_doc("Excelus Item Parameters", existing_param)
+		return params_instance
+	else:
 		new_item_parameter = frappe.new_doc("Excelus Item Parameters")
 		new_item_parameter.item = item
 		new_item_parameter.save()
-		frappe.db.commit()
-		return new_item_parameter
-	except Exception as e:
-		frappe.throw("Unable to add Reason: {0}".format(e))
-
-
-
-	
+		return new_item_parameter	

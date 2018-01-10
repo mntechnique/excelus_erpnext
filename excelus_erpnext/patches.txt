@@ -1,2 +1,2 @@
 excelus_erpnext.patches.delete_excelus_item_cf_01 #2016-11-12
-excelus_erpnext.patches.move_item_parameter_to_new_doctype
+excelus_erpnext.patches.move_item_parameter_to_new_doctype #2018-1-10
