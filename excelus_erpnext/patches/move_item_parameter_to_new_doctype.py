@@ -8,7 +8,7 @@ def execute():
 		if(frappe.db.exists("Excelus Item Parameters",{"item": old_item})):
 			# new_item = frappe.get_doc("Excelus Item Parameters",)
 		else:
-		    new_item = frappe.new_doc("Excelus Item Parameters") 
+			new_item = frappe.new_doc("Excelus Item Parameters") 
 		new_item.item = old_item.item_name
 		new_item.length = old_item.excelus_pm_length
 		new_item.width = old_item.excelus_pm_width
