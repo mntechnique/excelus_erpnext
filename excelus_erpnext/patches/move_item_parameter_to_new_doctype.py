@@ -4,7 +4,7 @@ def execute():
 	item_list = frappe.get_all("Item")
 
 	for i in item_list:
-		old_item =  frappe.get_doc("Item",i.name)
+		old_item = frappe.get_doc("Item",i.name)
 		if(frappe.db.exists("Excelus Item Parameters",{"item": old_item.name})):
 			new_item = frappe.get_doc("Excelus Item Parameters",(frappe.db.exists("Excelus Item Parameters",{"item": old_item})))
 		else:
