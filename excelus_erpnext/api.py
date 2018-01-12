@@ -292,4 +292,4 @@ def item_parameter_button(item):
 		new_item_parameter = frappe.new_doc("Excelus Item Parameters")
 		new_item_parameter.item = item
 		new_item_parameter.save()
-		return new_item_parameter	
+		return new_item_parameter

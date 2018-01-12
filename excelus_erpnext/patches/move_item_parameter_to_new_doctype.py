@@ -6,17 +6,18 @@ def execute():
 	for i in item_list:
 
 		old_item =  frappe.get_doc("Item",i.name)
-		existing_param = frappe.db.get_value("Excelus Item Parameters", i)
+		old_item = frappe.db.get_value("Item", i.name)
 
-		if existing_param:
-			params_instance = frappe.get_doc("Excelus Item Parameters", existing_param)
+		if old_item:
+			params_instance = frappe.get_doc("Excelus Item Parameters", old_item)
 			return params_instance
 		else:
+		
 			new_item = frappe.new_doc("Excelus Item Parameters") 
 			new_item.item = old_item.item_name
 			new_item.length = old_item.excelus_pm_length
 			new_item.width = old_item.excelus_pm_width
-			new_item.heigth = old_item.excelus_pm_height
+			new_item.height = old_item.excelus_pm_height
 			new_item.thickness = old_item.excelus_pm_thickness
 			new_item.fold_bleed = old_item.excelus_pm_fold_bleed
 			new_item.flap_bleed = old_item.excelus_pm_flap_bleed
@@ -35,5 +36,5 @@ def execute():
 			new_item.hsm_code = old_item.hsm_code
 			new_item.abatement_rate = old_item.abetment_rate
 			new_item.save()
+			frappe.db.commit() 
 
-		frappe.db.commit() 

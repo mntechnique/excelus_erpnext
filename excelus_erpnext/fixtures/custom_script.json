@@ -3,9 +3,9 @@
   "docstatus": 0, 
   "doctype": "Custom Script", 
   "dt": "Item", 
-  "modified": "2018-01-08 20:51:41.471293", 
+  "modified": "2018-01-12 19:17:07.914952", 
   "name": "Item-Client", 
-  "script": "frappe.ui.form.on(\"Item\", {\n\trefresh: function(frm){\n\t\tif(!cur_frm.doc.__islocal){\n\t\t\tcur_frm.add_custom_button(__('Open Item Parameters'), function () {\n\t\t\t\tfrappe.call({\n\t\t\t\t\tmethod: \"excelus_erpnext.api.item_parameter_button\",\n\t\t\t\t\targs : {\"item\":cur_frm.doc.name}\n\t\t\t\t}).done((r) => {\n\t\t\t\t\tfrappe.set_route(\"Form\", \"Excelus Item Parameters\", r.message.name);\n\t\t\t\t})\n\t\t\t\t.fail((r)=>{\n\t\t\t\t\tconsole.log(r);\n\t\t\t\t});\n\t\t\t});\n\t\t}\n\t}\n});\n\n", 
+  "script": "frappe.ui.form.on(\"Item\", {\n\trefresh: function(frm){\n\t\tif((__('Open Item Parameters') in cur_frm.custom_buttons)==0 && (!cur_frm.doc.__islocal)){\n\t\t\tcur_frm.add_custom_button(__('Open Item Parameters'), function () {\n\t\t\t\tfrappe.call({\n\t\t\t\t\tmethod: \"excelus_erpnext.api.item_parameter_button\",\n\t\t\t\t\targs : {\"item\":cur_frm.doc.name}\n\t\t\t\t}).done((r) => {\n\t\t\t\t\tfrappe.set_route(\"Form\", \"Excelus Item Parameters\", r.message.name);\n\t\t\t\t})\n\t\t\t\t.fail((r)=>{\n\t\t\t\t\tconsole.log(r);\n\t\t\t\t});\n\t\t\t});\n\t\t}\n\t}\n});\n", 
   "script_type": "Client"
  }, 
  {
